@@ -9,6 +9,6 @@ jobs:
       - name: dependencies
         run: pip install pandas numpy seaborn matplotlib
       - name: test
-        run: ./HeatCluster.py test/snp*.txt
+        run: python3 HeatCluster.py test/snp*.txt
         
         
