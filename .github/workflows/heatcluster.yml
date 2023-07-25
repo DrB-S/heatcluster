@@ -1,1 +1,14 @@
-
+name: heatcluster test
+on: [pull_request, workflow_dispatch]
+jobs:
+  test:
+    runs-on: ubuntu
+    steps:
+      - name: checkout
+        uses: actions/checkout@V3
+      - name: dependencies
+        run: pip install pandas numpy seaborn matpltlib
+      - name: test
+        run: ./HeatCluster.py test/snp*.txt
+        
+        
