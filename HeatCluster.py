@@ -169,6 +169,7 @@ heatmap = sns.clustermap(
 plt.setp(heatmap.ax_heatmap.get_xticklabels(), rotation=45, ha='right')
 
 heatmap.ax_row_dendrogram.set_visible(False)
+heatmap.ax_col_dendrogram.set_visible(True)
 
 # Save the reordered heatmap as PDF and PNG
 heatmap.savefig('SNP_matrix.pdf')
