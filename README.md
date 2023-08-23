@@ -8,9 +8,7 @@ HeatCluster SNP Matrix Visualization is designed to provide an easy and effectiv
 
 ## Getting Started
 
-Follow these steps to get started with HeatCluster SNP Matrix Visualization:
-
-1. Clone the HeatCluster SNP Matrix Visualization repository to your local machine:
+Clone the HeatCluster SNP Matrix Visualization repository to your local machine:
 
 ```bash
 git clone https://github.com/DrB-S/HeatCluster.git
@@ -31,6 +29,8 @@ options:
   -v, --version             print version and exit
 ```
 
+There are multiple test files located in [test](./test) that can be used for trouble shooting.
+
 Example:
 ```
 ./HeatCluster.py -i test/snp_matrix.txt -o test
@@ -39,9 +39,22 @@ Example:
 This will generate a file called 'test.pdf'.
 
 Examples:
+```
+./HeatCluster.py -i test/snp_matrix.txt -o test -t png
+```
 
 ![alt text](assets/test.png)
 
+```
+./HeatCluster.py -i test/small_matrix.csv -o small_test -t png
+```
 ![alt text](assets/small_test.png)
 
+```
+./HeatCluster.py -i test/med_matrix.txt -o med_test -t png
+```
 ![alt text](assets/med_test.png)
+
+## Limitations
+
+Right now most outputs from snp-dists are supported with the exception of getting a molten or melted output (created with the `-m` option of snp-dists).
