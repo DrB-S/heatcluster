@@ -11,25 +11,25 @@ jobs:
         run: pip install pandas numpy scipy fastcluster scikit-learn seaborn matplotlib
       
       - name: test
-        run: python3 HeatCluster.py test/snp_matrix.txt
+        run: python3 HeatCluster.py -i test/snp_matrix.txt
 
       - name: test1
-        run: ./HeatCluster.py test/snp-dists.txt -o test1
+        run: ./HeatCluster.py -i test/snp-dists.txt -o test1
       
       - name: test2
-        run: ./HeatCluster.py test/blank.txt -o test2 -t png
+        run: ./HeatCluster.py -i test/blank.txt -o test2 -t png
 
       - name: test3
-        run: ./HeatCluster.py test/melted.txt -o test3
+        run: ./HeatCluster.py -i test/melted.txt -o test3
       
       - name: test4
-        run: ./HeatCluster.py test/small_matrix.csv -o test4
+        run: ./HeatCluster.py -i test/small_matrix.csv -o test4
       
       - name: test5
-        run: ./HeatCluster.py test/med_matrix.txt -o test5
+        run: ./HeatCluster.py -i test/med_matrix.txt -o test5
       
       - name: test6
-        run: ./HeatCluster.py test/large_matrix.csv -o test6
+        run: ./HeatCluster.py -i test/large_matrix.csv -o test6
 
       - name: test7
         run: ./HeatCluster.py -h
