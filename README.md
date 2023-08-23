@@ -8,6 +8,8 @@ HeatCluster SNP Matrix Visualization is designed to provide an easy and effectiv
 
 ## Getting Started
 
+### Getting the script
+
 Clone the HeatCluster SNP Matrix Visualization repository to your local machine:
 
 ```bash
@@ -15,6 +17,21 @@ git clone https://github.com/DrB-S/HeatCluster.git
 ```
 
 `HeatCluster.py` can be found in the HeatCluster directory that was just created.
+
+### Getting the dependencies
+HeatCluster requires
+- python3
+  - pandas 
+  - numpy 
+  - scipy
+  - fastcluster
+  - scikit-learn
+  - seaborn
+  - matplotlib
+
+```bash
+pip install pandas numpy scipy fastcluster scikit-learn seaborn matplotlib
+```
 
 ## Running HeatCluster.py
 
