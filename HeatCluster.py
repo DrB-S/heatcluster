@@ -17,8 +17,7 @@ import seaborn as sns
 from sklearn.cluster import KMeans
 from sklearn.metrics import silhouette_score
 
-#logging.basicConfig(format='%(asctime)s - %(message)s', datefmt='%y-%b-%d %H:%M:%S', level=logging.INFO)
-logging.basicConfig(format='%(asctime)s - %(message)s', datefmt='%y-%b-%d %H:%M:%S', level=logging.DEBUG)
+logging.basicConfig(format='%(asctime)s - %(message)s', datefmt='%y-%b-%d %H:%M:%S', level=logging.INFO)
 
 parser = argparse.ArgumentParser()
 parser.add_argument('-i', '--input', required = True, type = str, help ='input SNP matrix')
