@@ -17,7 +17,8 @@ import seaborn as sns
 from sklearn.cluster import KMeans
 from sklearn.metrics import silhouette_score
 
-logging.basicConfig(format='%(asctime)s - %(message)s', datefmt='%y-%b-%d %H:%M:%S', level=logging.INFO)
+#logging.basicConfig(format='%(asctime)s - %(message)s', datefmt='%y-%b-%d %H:%M:%S', level=logging.INFO)
+logging.basicConfig(format='%(asctime)s - %(message)s', datefmt='%y-%b-%d %H:%M:%S', level=logging.DEBUG)
 
 parser = argparse.ArgumentParser()
 parser.add_argument('-i', '--input', required = True, type = str, help ='input SNP matrix')
@@ -87,6 +88,10 @@ def main():
     logging.debug('The input SNP matrix:')
     logging.debug(df)
 
+    if len(df.index) > len(df.columns):
+        logging.fatal('This matrix has been melted. Sorry!')
+        exit(0)
+
     df = clean_and_read_df(df)
     logging.debug('The clean SNP matrix:')
     logging.debug(df)
@@ -95,7 +100,7 @@ def main():
     logging.info('Found ' + str(numSamples) + ' samples in ' + SNPmatrix)
 
     if numSamples <= 3:
-        logging.fatal('This matrix has too few samples or has been melted. Sorry!')
+        logging.fatal('This matrix has too few samples. Sorry!')
         exit(0)
 
     # Set output figure size tuple based on number of samples
