@@ -55,16 +55,15 @@ def clean_and_read_df(df):
     df.dropna(axis=1, inplace=True)  
     return df
 
-
 def main():
     if args.input:
         path = args.input
     else:
-    try:
-        path = Path('./snp-dists.txt')
-        path.resolve(strict=True)
-    except FileNotFoundError:
-        path = Path('./snp_matrix.txt')
+        try:
+            path = Path('./snp-dists.txt')
+            path.resolve(strict=True)
+        except FileNotFoundError:
+            path = Path('./snp_matrix.txt')
 
     print("Using file path:", path)
 
@@ -72,7 +71,6 @@ def main():
     numSamples = len(lines) - 1
 
     df = clean_and_read_df(lines)
-
 
     if (numSamples) >= 140:
         fontSize = 2
