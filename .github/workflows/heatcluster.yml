@@ -16,7 +16,7 @@ jobs:
       - name: test1 (comma-delimited)
         run: ./HeatCluster.py -i test/snp-dists.txt -o test1
       
-      - name: test2 (blank - failure)
+      - name: test2 (empty first row/col cell)
         run: ./HeatCluster.py -i test/blank.txt -o test2 -t png
 
       - name: test3 (melted - failure)
