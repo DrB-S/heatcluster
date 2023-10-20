@@ -13,6 +13,7 @@ import numpy as np
 import seaborn as sns
 import matplotlib.pyplot as plt
 from pathlib import Path
+import scipy
 
 
 parser = argparse.ArgumentParser()
