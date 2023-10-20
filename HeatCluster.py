@@ -62,8 +62,8 @@ def main():
          try:
               path = Path('./snp-dists.txt')
               path.resolve(strict=True)
-         except FileNotFoundError:
-              path = Path('./snp_matrix.txt')
+              except FileNotFoundError:
+                   path = Path('./snp_matrix.txt')
 
     print("Using file path:", path)
 
