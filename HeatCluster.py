@@ -14,8 +14,9 @@ import seaborn as sns
 import matplotlib.pyplot as plt
 from pathlib import Path
 
+
 parser = argparse.ArgumentParser()
-parser.add_argument('-i', '--input', type=str, help='input SNP matrix', default='snp-dists.txt')
+parser.add_argument('-i', '--input', type=str, help='input SNP matrix file name', default='snp-dists.txt')
 parser.add_argument('-o', '--out', type=str, help='final file name', default='SNP_matrix')
 parser.add_argument('-t', '--type', type=str, help='file extension for final image', default = 'pdf')
 parser.add_argument('-v', '--version', help='print version and exit', action='version', version='%(prog)s ' + '0.4.10')
@@ -25,9 +26,9 @@ def read_snp_matrix(file):
     tabs   = pd.read_csv(file, nrows=1, sep='\t').shape[1]
     commas = pd.read_csv(file, nrows=1, sep=',').shape[1]
     if tabs > commas:
-         df = pd.read_csv(file, sep='\t', index_col= False)
+        df = pd.read_csv(file, sep='\t', index_col= False)
     else:
-         df = pd.read_csv(file, sep=',', index_col= False)
+        df = pd.read_csv(file, sep=',', index_col= False)
 
     return df
 
@@ -64,8 +65,8 @@ def main():
             path.resolve(strict=True)
         except FileNotFoundError:
             path = Path('./snp_matrix.txt')
-    print("Using file path:", path)
 
+    print("Using file path:", path)
     lines = read_snp_matrix(path)
     numSamples = len(lines) - 1
 
