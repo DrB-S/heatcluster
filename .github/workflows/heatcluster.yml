@@ -11,7 +11,7 @@ jobs:
         run: pip install argparse logging pandas numpy pathlib seaborn matplotlib
       
       - name: test (tab-delimited)
-        run: python3 HeatCluster.py -i test/snp_matrix.txt
+        run: python3 HeatCluster.py -i test/small_matrix.csv
 
       - name: test1 (comma-delimited)
         run: ./HeatCluster.py -i test/snp-dists.txt -o test1
