@@ -12,7 +12,6 @@ import pandas as pd
 import numpy as np
 import seaborn as sns
 import matplotlib.pyplot as plt
-import pathlib
 from pathlib import Path
 
 parser = argparse.ArgumentParser()
@@ -58,6 +57,9 @@ def clean_and_read_df(df):
 
 
 def main():
+    if args.input:
+        path = args.input
+    else:
     try:
         path = Path('./snp-dists.txt')
         path.resolve(strict=True)
