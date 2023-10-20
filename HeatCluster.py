@@ -8,15 +8,12 @@
 ###########################################
 
 import argparse
-import logging
 import pandas as pd
 import numpy as np
 import seaborn as sns
 import matplotlib.pyplot as plt
 import pathlib
 from pathlib import Path
-
-logging.basicConfig(format='%(asctime)s - %(message)s', datefmt='%y-%b-%d %H:%M:%S', level=logging.INFO)
 
 parser = argparse.ArgumentParser()
 parser.add_argument('-i', '--input', type=str, help='input SNP matrix', default='snp-dists.txt')
@@ -26,15 +23,12 @@ parser.add_argument('-v', '--version', help='print version and exit', action='ve
 args = parser.parse_args()
 
 def read_snp_matrix(file):
-    logging.debug('Determining if file is comma or tab delimited')
     tabs   = pd.read_csv(file, nrows=1, sep='\t').shape[1]
     commas = pd.read_csv(file, nrows=1, sep=',').shape[1]
     if tabs > commas:
-        logging.debug('The file is probably tab-delimited')
-        df = pd.read_csv(file, sep='\t', index_col= False)
+         df = pd.read_csv(file, sep='\t', index_col= False)
     else:
-        logging.debug('The file is probably comma-delimited')
-        df = pd.read_csv(file, sep=',', index_col= False)
+         df = pd.read_csv(file, sep=',', index_col= False)
 
     return df
 
