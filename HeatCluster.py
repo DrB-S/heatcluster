@@ -57,14 +57,13 @@ def clean_and_read_df(df):
 
 def main():
     if args.input:
-         path = args.input
+        path = args.input
     else:
-         try:
-              path = Path('./snp-dists.txt')
-              path.resolve(strict=True)
-              except FileNotFoundError:
-                   path = Path('./snp_matrix.txt')
-
+        try:
+            path = Path('./snp-dists.txt')
+            path.resolve(strict=True)
+        except FileNotFoundError:
+            path = Path('./snp_matrix.txt')
     print("Using file path:", path)
 
     lines = read_snp_matrix(path)
