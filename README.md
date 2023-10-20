@@ -16,21 +16,21 @@ Clone the HeatCluster SNP Matrix Visualization repository to your local machine:
 git clone https://github.com/DrB-S/HeatCluster.git
 ```
 
-`HeatCluster.py` can be found in the HeatCluster directory that was just created.
+`HeatCluster.py` can be found in the HeatCluster directory which was just created.
 
 ### Getting the dependencies
 HeatCluster requires
 - python3
+  - argparse
+  - logging
   - pandas 
   - numpy 
-  - scipy
-  - fastcluster
-  - scikit-learn
   - seaborn
   - matplotlib
+  - pathlib
 
 ```bash
-pip install pandas numpy scipy fastcluster scikit-learn seaborn matplotlib
+pip3 install argparse logging pandas numpy seaborn matplotlib pathlib
 ```
 
 ## Running HeatCluster.py
@@ -40,38 +40,28 @@ usage: HeatCluster.py [-h] -i INPUT [-o OUT] [-t TYPE] [-v]
 
 options:
   -h, --help                show this help message and exit
-  -i INPUT, --input INPUT   input SNP matrix
+  -i INPUT, --input INPUT   input SNP matrix file name
   -o OUT, --out OUT         final file name (default = 'SNP_matrix')
   -t TYPE, --type TYPE      file extention for final image (default = 'pdf')
   -v, --version             print version and exit
 ```
 
-There are multiple test files located in [test](./test) that can be used for trouble shooting.
+Multiple test files are located in [test](./test) which can be used for troubleshooting.
 
-Example:
+Examples:
 ```
 ./HeatCluster.py -i test/snp_matrix.txt -o test
 ```
 
 This will generate a file called 'test.pdf'.
 
-Examples:
 ```
-./HeatCluster.py -i test/snp_matrix.txt -o test -t png
+./HeatCluster.py -i test/snp-dists.txt -o test -t png
 ```
 
-![alt text](assets/test.png)
-
-```
-./HeatCluster.py -i test/small_matrix.csv -o small_test -t png
-```
-![alt text](assets/small_test.png)
-
-```
-./HeatCluster.py -i test/med_matrix.txt -o med_test -t png
-```
-![alt text](assets/med_test.png)
+This will generate a file called 'test.png' from a comma-delimited matrix.
+(see ```assets/test.png```)
 
 ## Limitations
 
-Right now most outputs from snp-dists are supported with the exception of getting a molten or melted output (created with the `-m` option of snp-dists).
+Currently most outputs from snp-dists are supported with the exception of getting a molten or melted output (created with the `-m` option of snp-dists).
