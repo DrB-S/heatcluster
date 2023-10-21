@@ -34,7 +34,7 @@ jobs:
       - name: test7 (help)
         run: ./HeatCluster.py -h
 
-      - name: test7 (version)
+      - name: test8 (version)
         run: ./HeatCluster.py -v
 
       - name: tree
