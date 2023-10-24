@@ -20,7 +20,7 @@ logging.basicConfig(format='%(asctime)s - %(message)s', datefmt='%y-%b-%d %H:%M:
 parser = argparse.ArgumentParser()
 parser.add_argument('-i', '--input', required = True, type = str, help ='input SNP matrix')
 parser.add_argument('-o', '--out', type=str, help='final file name', default='SNP_matrix')
-parser.add_argument('-t', '--type', type=str, help='file extention for final image', default = 'pdf')
+parser.add_argument('-t', '--type', type=str, help='file extension for final image', default = 'pdf')
 parser.add_argument('-v', '--version', help='print version and exit', action='version', version='%(prog)s ' + '0.4.10')
 args = parser.parse_args()
 
