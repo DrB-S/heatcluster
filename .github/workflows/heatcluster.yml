@@ -8,7 +8,7 @@ jobs:
         uses: actions/checkout@v3
       
       - name: install dependencies
-        run: pip install argparse pandas numpy pathlib seaborn matplotlib
+        run: pip install argparse pandas numpy pathlib seaborn matplotlib scipy
       
       - name: test (tab-delimited)
         run: ./HeatCluster.py -i test/small_matrix.csv
