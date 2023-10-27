@@ -1,4 +1,4 @@
-#!/usr/local/bin/python3
+#!/usr/bin/python3
 
 ###########################################
 # HeatCluster-0.4.11                      #
