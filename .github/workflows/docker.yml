@@ -14,5 +14,5 @@ on: [push]
     docker login -u $DOCKER_USER -p $DOCKER_PASSWORD
     - name: docker build HeatCluster
     - run: |
-    docker build ./python3 DrB-S/HeatCluster:0.4.11
+    docker build ./python3 DrB-S/HeatCluster:latest
     
