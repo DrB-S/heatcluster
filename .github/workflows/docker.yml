@@ -1,0 +1,12 @@
+name: HeatCluster pull
+
+on: [push]
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+    - uses: actions/checkout@v2
+    - name: docker build HeatCluster
+    - run: |
+    docker build ./python3 DrB-S/HeatCluster:0.4.11
+    
