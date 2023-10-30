@@ -27,7 +27,7 @@ jobs:
       with:
         context: .
         push: true
-        tags: rocker/drd:latest
+        tags: drb-s/heatcluster:latest
         
     - name: Timestamp
       run: date --rfc-3339=seconds > lastBuild.txt
