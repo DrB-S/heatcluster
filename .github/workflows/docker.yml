@@ -1,7 +1,7 @@
-name: HeatCluster pull
+ename: HeatCluster pull
 
 on: [push]
-  build:
+build:
     runs-on: ubuntu-latest
 
     steps:
