@@ -1,18 +1,17 @@
-ename: HeatCluster pull
+name: HeatCluster pull
 
 on: [push]
 build:
-    runs-on: ubuntu-latest
-
-    steps:
+runs-on: ubuntu-latest
+steps:
     - uses: actions/checkout@v3
     - name: docker login
-    env:
-      DOCKER_USER: ${{secrets.DOCKER_USER}}
-      DOCKER_PASSWORD: ${{secrets.DOCKER_PASSWORD}}
-    - run: |
+env:
+DOCKER_USER: ${{secrets.DOCKER_USER}}
+DOCKER_PASSWORD: ${{secrets.DOCKER_PASSWORD}}
+    - run:|
     docker login -u $DOCKER_USER -p $DOCKER_PASSWORD
-    - name: docker build HeatCluster
-    - run: |
-    docker build ./python3 DrB-S/HeatCluster:latest
+    - name:docker build HeatCluster
+    - run:|
+        docker build ./python3 DrB-S/HeatCluster:latest
     
