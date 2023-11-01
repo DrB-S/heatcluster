@@ -22,4 +22,4 @@ jobs:
 
       - name: Docker Build
         run: |
-          docker build -t DrB-S/heatcluster:latest python3
+          docker build -t DrB-S/heatcluster:latest .
