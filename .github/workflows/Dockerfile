@@ -1,4 +1,4 @@
-From: python3.11.6-alpine
+FROM python:3.11.6-alpine
 
 COPY .github /app/
 COPY assets /app/
