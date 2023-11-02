@@ -9,4 +9,4 @@ WORKDIR /app
 
 RUN HeatCluster.py
 
-CMD 
+CMD ["heatcluster"]
