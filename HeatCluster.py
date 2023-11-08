@@ -1,11 +1,11 @@
 #!/usr/bin/python3
 
 ###########################################
-# HeatCluster-0.4.11                      #
+# HeatCluster-0.4.12                      #
 # written by Stephen Beckstrom-Sternberg  #
 # Creates SNP heat/cluster maps           #
 # from SNP matrices                       #
-# - modularized                           #
+# - removed pathlib                       #
 ###########################################
 
 import argparse
@@ -15,7 +15,6 @@ import numpy as np
 import seaborn as sns
 import matplotlib.pyplot as plt
 import scipy
-from pathlib import Path
 
 logging.basicConfig(format='%(asctime)s - %(message)s', datefmt='%y-%b-%d %H:%M:%S', level=logging.INFO)
 
@@ -23,7 +22,7 @@ parser = argparse.ArgumentParser()
 parser.add_argument('-i', '--input', type=str, help='input SNP matrix file name', default='snp-dists.txt')
 parser.add_argument('-o', '--out', type=str, help='final file name', default='SNP_matrix')
 parser.add_argument('-t', '--type', type=str, help='file extension for final image', default = 'pdf')
-parser.add_argument('-v', '--version', help='print version and exit', action='version', version='%(prog)s ' + '0.4.11')
+parser.add_argument('-v', '--version', help='print version and exit', action='version', version='%(prog)s ' + '0.4.12')
 args = parser.parse_args()
 
 def main():
@@ -87,6 +86,7 @@ def clean_and_read_df(df):
     df = df.iloc[: , 1:]
 
     # Convert column names to strings
+#    df.columns = df.row(0, named=True)
     df.columns = df.columns.map(str)
     
          # Define consensus patterns
@@ -164,6 +164,9 @@ def create_heatmap(df, fontSize):
     heatmap.savefig(outfile)
 
     plt.show()
+
+if __name__ == "__main__":
+    main()
 
 if __name__ == "__main__":
     main()
