@@ -5,7 +5,7 @@
 # written by Stephen Beckstrom-Sternberg  #
 # Creates SNP heat/cluster maps           #
 # from SNP matrices                       #
-# - removed scipy and pathlib imports     #
+# - removed pathlib                       #
 ###########################################
 
 import argparse
