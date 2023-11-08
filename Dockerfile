@@ -23,3 +23,5 @@ COPY . .
 ENV PATH=/HeatCluster:$PATH
 
 CMD HeatCluster.py --help
+
+WORKDIR /data
