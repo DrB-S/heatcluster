@@ -9,19 +9,19 @@ LABEL version="${HEATCLUSTER_VER}"
 LABEL website="https://github.com/DrB-S/HeatCluster"
 LABEL license="https://github.com/DrB-S/HeatCluster/blob/master/LICENSE"
 LABEL name="heatcluster/${HEATCLUSTER_VER}"
+
 # Install Python and pip
 RUN apt-get update && apt-get install -y python3 python3-pip && \
     apt-get clean && rm -rf /var/lib/apt/lists/*
 
 # Install Python packages
-RUN pip3 install argparse 
-RUN pip3 install pandas 
-RUN pip3 install numpy 
-RUN pip3 install pathlib 
-RUN pip3 install seaborn 
-RUN pip3 install matplotlib
-RUN pip3 install scipy
+RUN pip3 install argparse pandas numpy pathlib seaborn matplotlib scipy 
 
-WORKDIR /app
+WORKDIR /HeatCluster
 COPY . .
-#CMD ["python3", "HeatCluster.py"]
+
+ENV PATH=/HeatCluster:$PATH
+
+CMD HeatCluster.py --help
+
+WORKDIR /data
