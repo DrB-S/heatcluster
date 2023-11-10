@@ -152,7 +152,7 @@ def create_heatmap(df, fontSize):
     plt.setp(heatmap.ax_heatmap.get_xticklabels(), rotation=45, ha='right',fontsize=fontSize)
     plt.setp(heatmap.ax_heatmap.get_yticklabels(), rotation='horizontal', fontsize=fontSize)
 
-    plt.title('SNP matrix visualized via HeatCluster')
+    plt.title('SNP matrix visualized via heatcluster')
 
     heatmap.ax_row_dendrogram.set_visible(False)
     heatmap.ax_col_dendrogram.set_visible(False)
