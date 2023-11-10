@@ -2,7 +2,7 @@ name: heatcluster test
 on: [pull_request, workflow_dispatch]
 jobs:
   test:
-    runs-on: ubuntu-jammy
+    runs-on: ubuntu-20.0.4
     steps:
       - name: checkout
         uses: actions/checkout@v3
