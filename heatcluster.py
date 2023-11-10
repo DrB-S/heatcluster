@@ -1,7 +1,7 @@
 #!/usr/bin/python3
 
 ###########################################
-# HeatCluster-0.4.12                      #
+# heatcluster-0.4.12                      #
 # written by Stephen Beckstrom-Sternberg  #
 # Creates SNP heat/cluster maps           #
 # from SNP matrices                       #
@@ -25,7 +25,7 @@ parser.add_argument('-t', '--type', type=str, help='file extension for final ima
 parser.add_argument('-v', '--version', help='print version and exit', action='version', version='%(prog)s ' + '0.4.12')
 args = parser.parse_args()
 
-def main():
+def main(args):
     """
     Creates image for SNP matrix.
     """
@@ -166,7 +166,4 @@ def create_heatmap(df, fontSize):
     plt.show()
 
 if __name__ == "__main__":
-    main()
-
-if __name__ == "__main__":
-    main()
+    main(args)
