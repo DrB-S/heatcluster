@@ -20,9 +20,10 @@ LABEL maintainer.email="stephen.beckstrom-sternberg@azdhs.gov"
 # 'RUN' executes code during the build
 # Install Python and pip
 RUN apt-get update && apt-get install -y --no-install-recommends \
-python3 python3-pip && \
+apt-utils python3 python3-pip && \
     apt-get clean && rm -rf /var/lib/apt/lists/*
 
+USER "$USER"
 # Install Python dependencies
 RUN pip3 install pandas numpy pathlib seaborn matplotlib scipy 
 
