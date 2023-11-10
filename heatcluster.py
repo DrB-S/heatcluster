@@ -48,8 +48,7 @@ def main(args):
     (df, fontSize) = determine_heatmap_size(df, SNPmatrix)
     
     create_heatmap(df, fontSize)
-#
-    print("Done")
+    logging.info("Done")    
 def read_snp_matrix(file):
     """
     Reads the SNP matrix into a pandas dataframe.
