@@ -38,15 +38,15 @@ CMD HeatCluster.py --help
 FROM app as test
 
 # set working directory so that all test inputs & outputs are kept in /test
-WORKDIR /test
+#WORKDIR /test
 
 # print help and version info; check dependencies (not all software has these options available)
 # Mostly this ensures the tool of choice is in path and is executable
-RUN heatcluster --help && \
- heatcluster --check && \
- heatcluster --version
+#RUN heatcluster --help && \
+# heatcluster --check && \
+# heatcluster --version
 
 # Demonstrate that the program is successfully installed
 
-# Run the program's internal tests if available
-RUN HeatCluster.py --test
+# Run a test matrix thru the program
+RUN python3 HeatCluster.py -i snp-dists.txt
