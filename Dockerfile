@@ -17,17 +17,13 @@ LABEL name="heatcluster/${HEATCLUSTER_VER}"
 LABEL maintainer="Stephen Beckstrom-Sternberg"
 LABEL maintainer.email="stephen.beckstrom-sternberg@azdhs.gov"
 
-# 'RUN' executes code during the build
 # Install Python and pip
 RUN apt-get update && apt-get install -y --no-install-recommends \
 apt-utils python3 python3-pip && \
     apt-get clean && rm -rf /var/lib/apt/lists/*
 
-USER "$USER"
 # Install Python dependencies
 RUN pip3 install pandas numpy pathlib seaborn matplotlib scipy 
-
-ENV PATH="$PATH"
 
 # Set /data as working dir
 RUN mkdir /data
@@ -37,33 +33,20 @@ RUN echo "installing heatcluster" && echo
 
 COPY . .
 
-RUN echo "Change to lowercase name: " && \
-mv HeatCluster-${HEATCLUSTER_VER} heatcluster-${HEATCLUSTER_VER}
-RUN chmod +x bin/heatcluster
+RUN echo && echo && ls -latr /data && echo
 
 # 'ENV' instructions set environment variables that persist from the build into the resulting image
 # Use for e.g. $PATH and locale settings for compatibility with Singularity
 ENV PATH="/heatcluster-${HEATCLUSTER_VER}/bin:$PATH" \
  LC_ALL=C
 
-# 'CMD' instructions set a default command when the container is run.  
-CMD HeatCluster.py --help
-
 FROM app as test
 
-# set working directory so that all test inputs & outputs are kept in /test
-#WORKDIR /test
-
-# print help and version info; check dependencies (not all software has these options available)
+# print help and version info
 # Mostly this ensures the tool of choice is in path and is executable
-#RUN heatcluster --help && \
-# heatcluster --check && \
-# heatcluster --version
-
-# Demonstrate that the program is successfully installed
-
-RUN echo && echo "Show heatcluster help file:  " && echo && \
- python3 HeatCluster.py -h  && echo
+RUN echo && echo "Show heatcluster help file and program version number:  " && echo && \
+python3 HeatCluster.py --help && \
+python3 HeatCluster.py --version
  
  RUN echo && echo "Run a test matrix thru the program" && \
 python3 HeatCluster.py -i snp-dists.txt && echo
