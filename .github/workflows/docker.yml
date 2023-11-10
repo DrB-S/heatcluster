@@ -1,6 +1,6 @@
 name: HeatCluster Build
 
-on: [pull_request, workflow_dispatch]
+on: 
   push:
     branches:
       - main  # Adjust the branch name as needed
