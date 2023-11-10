@@ -8,11 +8,11 @@ ARG HEATCLUSTER_VER
 
 LABEL base.image="ubuntu:jammy"
 LABEL dockerfile.version="3"
-LABEL software="HeatCluster"
+LABEL software="heatcluster"
 LABEL software.version="${HEATCLUSTER_VER}"
 LABEL description="This software produces a heatmap for a SNP matrix"
-LABEL website="https://github.com/DrB-S/HeatCluster"
-LABEL license="https://github.com/DrB-S/HeatCluster/blob/master/LICENSE"
+LABEL website="https://github.com/DrB-S/heatcluster"
+LABEL license="https://github.com/DrB-S/heatcluster/blob/master/LICENSE"
 LABEL name="heatcluster/${HEATCLUSTER_VER}"
 LABEL maintainer="Stephen Beckstrom-Sternberg"
 LABEL maintainer.email="stephen.beckstrom-sternberg@azdhs.gov"
@@ -45,8 +45,8 @@ FROM app as test
 # print help and version info
 # Mostly this ensures the tool of choice is in path and is executable
 RUN echo && echo "Show heatcluster help file and program version number:  " && echo && \
-python3 HeatCluster.py --help && \
-python3 HeatCluster.py --version
+python3 heatcluster.py --help && \
+python3 heatcluster.py --version
  
  RUN echo && echo "Run a test matrix thru the program" && \
-python3 HeatCluster.py -i test/snp-dists.txt && echo
+python3 heatcluster.py -i test/snp-dists.txt && echo
