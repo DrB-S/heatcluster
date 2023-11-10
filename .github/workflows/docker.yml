@@ -7,7 +7,7 @@ on:
 
 jobs:
   build:
-    runs-on: ubuntu-jammy
+    runs-on: ubuntu-latest
     
     steps:
       - name: Checkout code
