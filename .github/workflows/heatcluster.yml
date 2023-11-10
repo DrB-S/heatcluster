@@ -11,31 +11,31 @@ jobs:
         run: pip install pandas numpy pathlib seaborn matplotlib scipy
       
       - name: test (tab-delimited)
-        run: python3 HeatCluster.py -i test/small_matrix.csv
+        run: python3 heatcluster.py -i test/small_matrix.csv
 
       - name: test1 (comma-delimited)
-        run: python3 HeatCluster.py -i test/snp-dists.txt -o test1
+        run: python3 heatcluster.py -i test/snp-dists.txt -o test1
       
       - name: test2 (empty first row/col cell)
-        run: python3 HeatCluster.py -i test/blank.txt -o test2 -t png
+        run: python3 heatcluster.py -i test/blank.txt -o test2 -t png
 
       - name: test3 (melted - failure)
-        run: python3 HeatCluster.py -i test/melted.txt -o test3
+        run: python3 heatcluster.py -i test/melted.txt -o test3
       
       - name: test4 (small matrix)
-        run: python3 HeatCluster.py -i test/small_matrix.csv -o test4
+        run: python3 heatcluster.py -i test/small_matrix.csv -o test4
       
       - name: test5 (medium matrix)
-        run: python3 HeatCluster.py -i test/med_matrix.txt -o test5
+        run: python3 heatcluster.py -i test/med_matrix.txt -o test5
       
       - name: test6 (large matrix)
-        run: python3 HeatCluster.py -i test/large_matrix.csv -o test6
+        run: python3 heatcluster.py -i test/large_matrix.csv -o test6
 
       - name: test7 (help)
-        run: python3 HeatCluster.py -h
+        run: python3 heatcluster.py -h
 
       - name: test8 (version)
-        run: python3 HeatCluster.py -v
+        run: python3 heatcluster.py -v
 
       - name: tree
         run: tree
