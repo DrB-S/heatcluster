@@ -49,4 +49,4 @@ python3 HeatCluster.py --help && \
 python3 HeatCluster.py --version
  
  RUN echo && echo "Run a test matrix thru the program" && \
-python3 HeatCluster.py -i snp-dists.txt && echo
+python3 HeatCluster.py -i test/snp-dists.txt && echo
