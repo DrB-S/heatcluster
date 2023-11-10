@@ -22,4 +22,4 @@ jobs:
 
       - name: Docker Build
         run: |
-          docker build -t stevebsdocker/heatcluster:latest .
+          docker build -t stevebsdocker/heatcluster:0.4.12 .
