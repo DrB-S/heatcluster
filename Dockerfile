@@ -1,9 +1,13 @@
-FROM ubuntu:jammy as app
-
 ARG HEATCLUSTER_VER="0.4.12"
 
+FROM ubuntu:jammy as app
+USER root
+
+# re-instantiating for the app build layer if using ARG as a global variable above
+ARG HEATCLUSTER_VER
+
 LABEL base.image="ubuntu:jammy"
-LABEL dockerfile.version="1"
+LABEL dockerfile.version="3"
 LABEL software="HeatCluster"
 LABEL software.version="${HEATCLUSTER_VER}"
 LABEL description="This software produces a heatmap for a SNP matrix"
@@ -15,21 +19,30 @@ LABEL maintainer.email="stephen.beckstrom-sternberg@azdhs.gov"
 
 # 'RUN' executes code during the build
 # Install Python and pip
-RUN apt-get update && apt-get install -y python3 python3-pip && \
+RUN apt-get update && apt-get install -y --no-install-recommends \
+/usr/bin/python3 python3 python3-pip && \
     apt-get clean && rm -rf /var/lib/apt/lists/*
 
 # Install Python dependencies
 RUN pip3 install pandas numpy pathlib seaborn matplotlib scipy 
 
-# Make /data the working dir
+ENV PATH="$PATH"
+
+# Set /data as working dir
 RUN mkdir /data
 WORKDIR /data
 
+RUN echo "installing heatcluster" && echo
+
 COPY . .
+
+RUN echo "Change to lowercase name: " && \
+mv HeatCluster-${HEATCLUSTER_VER} heatcluster-${HEATCLUSTER_VER}
+RUN chmod +x bin/heatcluster
 
 # 'ENV' instructions set environment variables that persist from the build into the resulting image
 # Use for e.g. $PATH and locale settings for compatibility with Singularity
-ENV PATH="/HeatCluster-${HEATCLUSTER_VER}/bin:$PATH" \
+ENV PATH="/heatcluster-${HEATCLUSTER_VER}/bin:$PATH" \
  LC_ALL=C
 
 # 'CMD' instructions set a default command when the container is run.  
@@ -48,5 +61,8 @@ FROM app as test
 
 # Demonstrate that the program is successfully installed
 
-# Run a test matrix thru the program
-RUN python3 HeatCluster.py -i snp-dists.txt
+RUN echo && echo "Show heatcluster help file:  " && echo && \
+ heatcluster -h  && echo
+ 
+ RUN echo && echo "Run a test matrix thru the program" && \
+python3 HeatCluster.py -i snp-dists.txt && echo
