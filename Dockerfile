@@ -20,7 +20,7 @@ LABEL maintainer.email="stephen.beckstrom-sternberg@azdhs.gov"
 # 'RUN' executes code during the build
 # Install Python and pip
 RUN apt-get update && apt-get install -y --no-install-recommends \
-/usr/bin/python3 python3 python3-pip && \
+python3 python3-pip && \
     apt-get clean && rm -rf /var/lib/apt/lists/*
 
 # Install Python dependencies
@@ -62,7 +62,7 @@ FROM app as test
 # Demonstrate that the program is successfully installed
 
 RUN echo && echo "Show heatcluster help file:  " && echo && \
- heatcluster -h  && echo
+ python3 HeatCluster.py -h  && echo
  
  RUN echo && echo "Run a test matrix thru the program" && \
 python3 HeatCluster.py -i snp-dists.txt && echo
