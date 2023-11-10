@@ -1,6 +1,6 @@
 name: HeatCluster pull
 
-on: [push]
+on: [pull]
   build:
     runs-on: ubuntu-latest
 
