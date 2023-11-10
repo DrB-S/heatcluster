@@ -45,8 +45,8 @@ FROM app as test
 # print help and version info
 # Mostly this ensures the tool of choice is in path and is executable
 RUN echo && echo "Show heatcluster help file and program version number:  " && echo && \
-python3 HeatCluster.py --help && \
-python3 HeatCluster.py --version
+python3 heatcluster.py --help && \
+python3 heatcluster.py --version
  
  RUN echo && echo "Run a test matrix thru the program" && \
-python3 HeatCluster.py -i test/snp-dists.txt && echo
+python3 heatcluster.py -i test/snp-dists.txt && echo
