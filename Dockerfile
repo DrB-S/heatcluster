@@ -32,5 +32,5 @@ python3 HeatCluster.py --help && \
 python3 HeatCluster.py --version
 
 RUN echo && echo "Run a test matrix thru the program:" && \
-python3 heatcluster.py -i test/snp-dists.txt && echo ""
-RUN ls -ltr .|tail && echo ""
+python3 heatcluster.py -i test/snp-dists.txt && echo 
+RUN ls -ltr .|tail && echo 
