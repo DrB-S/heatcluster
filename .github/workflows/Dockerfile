@@ -1,12 +1,12 @@
 ARG HEATCLUSTER_VER="0.4.12"
 
-FROM ubuntu:jammy as app
+FROM ubuntu:latest as app
 USER root
 
 # re-instantiating for the app build layer if using ARG as a global variable above
 ARG HEATCLUSTER_VER
 
-LABEL base.image="ubuntu:jammy"
+LABEL base.image="ubuntu:latest"
 LABEL dockerfile.version="3"
 LABEL software="heatcluster"
 LABEL software.version="${HEATCLUSTER_VER}"
