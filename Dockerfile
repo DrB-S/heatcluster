@@ -4,8 +4,8 @@ LABEL base.image="ubuntu:latest"
 LABEL dockerfile.version="3"
 LABEL software.version="${HEATCLUSTER_VER}"
 LABEL version="${HEATCLUSTER_VER}"
-LABEL website="https://github.com/DrB-S/HeatCluster"
-LABEL license="https://github.com/DrB-S/HeatCluster/blob/master/LICENSE"
+LABEL website="https://github.com/DrB-S/heatcluster"
+LABEL license="https://github.com/DrB-S/heatcluster/blob/master/LICENSE"
 LABEL name="heatcluster/${HEATCLUSTER_VER}"
 LABEL maintainer="Stephen Beckstrom-Sternberg"
 LABEL maintainer.email="stephen.beckstrom-sternberg@azdhs.gov"
@@ -28,9 +28,9 @@ ENV PATH="/heatcluster:$PATH"
 RUN echo && echo && ls -ltr /heatcluster && echo
 
 RUN echo && echo "Show heatcluster help file and version number:  " && echo && \
-python3 HeatCluster.py --help && \
-python3 HeatCluster.py --version
+python3 heatcluster.py --help && \
+python3 heatcluster.py --version
 
 RUN echo && echo "Run a test matrix thru the program:" && \
 python3 heatcluster.py -i test/snp-dists.txt && echo 
-RUN ls -ltr .|tail && echo 
+RUN ls -ltr .|tail && echo "DONE"
