@@ -7,7 +7,7 @@ on:
 
 jobs:
   build:
-    runs-on: python-3.11
+    runs-on: ubuntu-jammy
     
     steps:
       - name: Checkout code
