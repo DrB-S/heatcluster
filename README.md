@@ -10,16 +10,16 @@ HeatCluster SNP Matrix Visualization is designed to provide an easy and effectiv
 
 ### Getting the script
 
-Clone the HeatCluster SNP Matrix Visualization repository to your local machine:
+Clone the heatcluster SNP Matrix Visualization repository to your local machine:
 
 ```bash
-git clone https://github.com/DrB-S/HeatCluster.git
+git clone https://github.com/DrB-S/heatcluster.git
 ```
 
-`HeatCluster.py` can be found in the HeatCluster directory which was just created.
+`heatcluster.py` can be found in the heatcluster directory which was just created.
 
 ### Getting the dependencies
-HeatCluster requires
+heatcluster requires
 - python3
   - argparse
   - logging
@@ -33,10 +33,10 @@ HeatCluster requires
 pip3 install argparse logging pandas numpy seaborn matplotlib pathlib
 ```
 
-## Running HeatCluster.py
+## Running heatcluster.py
 
 ```
-usage: HeatCluster.py [-h] -i INPUT [-o OUT] [-t TYPE] [-v]
+usage: heatcluster.py [-h] -i INPUT [-o OUT] [-t TYPE] [-v]
 
 options:
   -h, --help                show this help message and exit
@@ -50,13 +50,13 @@ Multiple test files are located in [test](./test) which can be used for troubles
 
 Examples:
 ```
-./HeatCluster.py -i test/snp_matrix.txt -o test
+./heatcluster.py -i test/snp_matrix.txt -o test
 ```
 
 This will generate a file called 'test.pdf'.
 
 ```
-./HeatCluster.py -i test/snp-dists.txt -o test -t png
+./heatcluster.py -i test/snp-dists.txt -o test -t png
 ```
 
 This will generate a file called 'test.png' from a comma-delimited matrix.
