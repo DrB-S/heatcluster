@@ -36,7 +36,7 @@ pip3 install argparse logging pandas numpy seaborn matplotlib pathlib
 ## Running heatcluster.py
 
 ```
-usage: heatcluster.py [-h] -i INPUT [-o OUT] [-t TYPE] [-v]
+usage: python3 heatcluster.py [-h] -i INPUT [-o OUT] [-t TYPE] [-v]
 
 options:
   -h, --help                show this help message and exit
@@ -50,13 +50,13 @@ Multiple test files are located in [test](./test) which can be used for troubles
 
 Examples:
 ```
-./heatcluster.py -i test/snp_matrix.txt -o test
+python3 heatcluster.py -i test/snp_matrix.txt -o test
 ```
 
 This will generate a file called 'test.pdf'.
 
 ```
-./heatcluster.py -i test/snp-dists.txt -o test -t png
+python3 heatcluster.py -i test/snp-dists.txt -o test -t png
 ```
 
 This will generate a file called 'test.png' from a comma-delimited matrix.
