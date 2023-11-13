@@ -1,6 +1,6 @@
-FROM python:3.11
+FROM ubuntu:jammy
 ARG HEATCLUSTER_VER="0.4.12"
-LABEL base.image="python:3.11"
+LABEL base.image="ubuntu:jammy"
 LABEL dockerfile.version="3"
 LABEL software.version="${HEATCLUSTER_VER}"
 LABEL version="${HEATCLUSTER_VER}"
