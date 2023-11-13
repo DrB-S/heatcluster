@@ -1,6 +1,6 @@
-FROM ubuntu:jammy
+FROM ubuntu:latest
 ARG HEATCLUSTER_VER="0.4.12"
-LABEL base.image="ubuntu:jammy"
+LABEL base.image="ubuntu:latest"
 LABEL dockerfile.version="3"
 LABEL software.version="${HEATCLUSTER_VER}"
 LABEL version="${HEATCLUSTER_VER}"
