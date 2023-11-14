@@ -17,7 +17,7 @@ apt-utils python3 python3-pip && \
     apt-get clean && rm -rf /var/lib/apt/lists/*
 
 # Install Python packages
-RUN pip3 install argparse pandas numpy pathlib seaborn matplotlib scipy 
+RUN pip3 install argparse pandas numpy pathlib seaborn matplotlib scipy --upgrade-strategy=only-if-needed
 
 WORKDIR /heatcluster
 
