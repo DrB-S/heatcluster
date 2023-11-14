@@ -2,7 +2,7 @@ name: heatcluster test
 on: [pull_request, workflow_dispatch]
 jobs:
   test:
-    runs-on: python-3.11
+    runs-on: ubuntu-latest
     steps:
       - name: checkout
         uses: actions/checkout@v3
