@@ -9,6 +9,7 @@ LABEL license="https://github.com/DrB-S/heatcluster/blob/master/LICENSE"
 LABEL name="heatcluster/${HEATCLUSTER_VER}"
 LABEL maintainer="Stephen Beckstrom-Sternberg"
 LABEL maintainer.email="stephen.beckstrom-sternberg@azdhs.gov"
+LABEL org.opencontainers.image.source=https://github.com/DrB-S/heatcluster
 
 # Install Python and pip
 RUN apt-get update && apt-get install -y --no-install-recommends \
