@@ -2,7 +2,7 @@ name: heatcluster test
 on: [pull_request, workflow_dispatch]
 jobs:
   test:
-    runs-on: ubuntu-latest
+    runs-on: ubuntu-jammy
     steps:
       - name: checkout
         uses: actions/checkout@v3
@@ -12,7 +12,7 @@ jobs:
           pandas numpy pathlib seaborn matplotlib scipy
       
       - name: test (tab-delimited)
-        run: python3 heatcluster.py -i test/small_matrix.csv
+        run: heatcluster.py -i test/small_matrix.csv
 
       - name: test1 (comma-delimited)
         run: python3 heatcluster.py -i test/snp-dists.txt -o test1
