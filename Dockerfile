@@ -1,17 +1,19 @@
 FROM ubuntu:jammy
 ARG HEATCLUSTER_VER="0.4.12"
+
 LABEL base.image="ubuntu:jammy"
 LABEL dockerfile.version="1"
+LABEL software="HeatCluster"
 LABEL software.version="${HEATCLUSTER_VER}"
 LABEL version="${HEATCLUSTER_VER}"
+LABEL description="Visualize SNP matrix from snp-dists output"
 LABEL website="https://github.com/DrB-S/heatcluster"
 LABEL license="https://github.com/DrB-S/heatcluster/blob/master/LICENSE"
 LABEL name="heatcluster/${HEATCLUSTER_VER}"
 LABEL maintainer="Stephen Beckstrom-Sternberg"
 LABEL maintainer.email="stephen.beckstrom-sternberg@azdhs.gov"
-#LABEL org.opencontainers.image.source=https://github.com/DrB-S/heatcluster
 
-# Install Python and pip
+RUN echo "Installing python and pip" && echo
 RUN apt-get update && apt-get install -y --no-install-recommends \
 ca-certificates \
   wget \
@@ -20,22 +22,34 @@ ca-certificates \
   python3-pip && \
   apt-get autoclean && rm -rf /var/lib/apt/lists/*
 
-# Install Python packages
+RUN echo "Installing python packages" && echo
 RUN pip3 install --no-cache argparse pandas numpy pathlib seaborn matplotlib scipy --upgrade-strategy=only-if-needed
 
-WORKDIR /heatcluster
+#WORKDIR /data
+RUN pwd && ls -la
 
-RUN echo "Installing heatcluster" && echo
+RUN echo "Installing heatcluster from archive: " && echo
+RUN wget -q https://github.com/DrB-S/heatcluster/archive/refs/tags/v${HEATCLUSTER_VER}.tar.gz && \
+  tar -vxf v${HEATCLUSTER_VER}.tar.gz && \
+  pwd && ls -latr && \
+  rm v${HEATCLUSTER_VER}.tar.gz && \
+  cd heatcluster-${HEATCLUSTER_VER} && ls -la 
 
-COPY . .
 
-ENV PATH="/heatcluster:$PATH"
-RUN echo && echo && ls -ltr /heatcluster && echo
+ENV PATH=/heatcluster-${HEATCLUSTER_VER}:$PATH
 
-RUN echo && echo "Show heatcluster help file and version number:  " && echo && \
-heatcluster.py --help && \
-heatcluster.py --version
+RUN pwd; ls -la
+WORKDIR /heatcluster-${HEATCLUSTER_VER}
 
-RUN echo && echo "Run a test matrix thru the program:" && \
-heatcluster.py -i test/snp-dists.txt && echo 
-RUN ls -ltr .|tail && echo "DONE"
+RUN echo && echo "Show heatcluster version number and help file:  " && echo 
+RUN heatcluster.py --version && echo && \
+heatcluster.py --help
+
+RUN echo && echo "Test a small and medium matrix :" && echo && echo && \
+heatcluster.py -i test/small_matrix.csv -t png -o small && \
+heatcluster.py -i test/med_matrix.txt -t png -o med
+
+RUN echo && ls -lh|tail && echo "DONE"
+
+WORKDIR /heatcluster-${HEATCLUSTER_VER}
+CMD heatcluster.py -v
