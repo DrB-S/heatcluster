@@ -11,7 +11,7 @@ jobs:
         run: pip3 install pandas numpy pathlib seaborn matplotlib scipy
       
       - name: test (tab-delimited)
-        run: heatcluster.py -i test/small_matrix.csv
+        run: python3 heatcluster.py -i test/small_matrix.csv
 
       - name: test1 (comma-delimited)
         run: python3 heatcluster.py -i test/snp-dists.txt -o test1
