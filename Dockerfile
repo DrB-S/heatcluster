@@ -50,6 +50,4 @@ heatcluster.py -i test/small_matrix.csv -t png -o small && \
 heatcluster.py -i test/med_matrix.txt -t png -o med
 
 RUN echo && ls -lh|tail && echo "DONE"
-
-WORKDIR /heatcluster-${HEATCLUSTER_VER}
 CMD [ "/bin/ls", "-l" ]
