@@ -35,7 +35,6 @@ RUN wget -q https://github.com/DrB-S/heatcluster/archive/refs/tags/v${HEATCLUSTE
   rm v${HEATCLUSTER_VER}.tar.gz && \
   cd heatcluster-${HEATCLUSTER_VER} && ls -la 
 
-
 ENV PATH=/heatcluster-${HEATCLUSTER_VER}:$PATH
 
 RUN pwd; ls -la
@@ -52,4 +51,4 @@ heatcluster.py -i test/med_matrix.txt -t png -o med
 RUN echo && ls -lh|tail && echo "DONE"
 
 WORKDIR /heatcluster-${HEATCLUSTER_VER}
-CMD heatcluster.py -v
+CMD ["/bin/bash"]
