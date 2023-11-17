@@ -25,7 +25,6 @@ ca-certificates \
 RUN echo "Installing python packages" && echo
 RUN pip3 install --no-cache argparse pandas numpy pathlib seaborn matplotlib scipy --upgrade-strategy=only-if-needed
 
-#WORKDIR /data
 RUN pwd && ls -la
 
 RUN echo "Installing heatcluster from archive: " && echo
@@ -54,5 +53,3 @@ RUN echo && ls -lh|tail && echo "DONE"
 
 WORKDIR /heatcluster-${HEATCLUSTER_VER}
 CMD [ "/bin/ls", "-l" ]
-RUN heatcluster.py -v
-
