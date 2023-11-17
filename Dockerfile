@@ -40,6 +40,8 @@ ENV PATH=/heatcluster-${HEATCLUSTER_VER}:$PATH
 RUN pwd; ls -la
 WORKDIR /heatcluster-${HEATCLUSTER_VER}
 
+FROM app as test
+
 RUN echo && echo "Show heatcluster version number and help file:  " && echo 
 RUN heatcluster.py --version && echo && \
 heatcluster.py --help
@@ -51,4 +53,6 @@ heatcluster.py -i test/med_matrix.txt -t png -o med
 RUN echo && ls -lh|tail && echo "DONE"
 
 WORKDIR /heatcluster-${HEATCLUSTER_VER}
-CMD ["/bin/bash"]
+CMD [ "/bin/ls", "-l" ]
+RUN heatcluster.py -v
+
