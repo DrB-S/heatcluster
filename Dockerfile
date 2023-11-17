@@ -1,4 +1,4 @@
-FROM ubuntu:jammy
+FROM ubuntu:jammy as app
 ARG HEATCLUSTER_VER="0.4.12"
 
 LABEL base.image="ubuntu:jammy"
