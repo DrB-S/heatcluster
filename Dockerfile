@@ -3,7 +3,7 @@ ARG HEATCLUSTER_VER="0.4.12"
 
 LABEL base.image="ubuntu:jammy"
 LABEL dockerfile.version="1"
-LABEL software="HeatCluster"
+LABEL software="heatcluster"
 LABEL software.version="${HEATCLUSTER_VER}"
 LABEL version="${HEATCLUSTER_VER}"
 LABEL description="Visualize SNP matrix from snp-dists output"
