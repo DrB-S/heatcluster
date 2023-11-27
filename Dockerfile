@@ -14,8 +14,9 @@ LABEL maintainer="Stephen Beckstrom-Sternberg"
 LABEL maintainer.email="stephen.beckstrom-sternberg@azdhs.gov"
 
 RUN echo "Installing python and pip" && echo
-RUN apt-get update && apt-get install -y --no-install-recommends \
-ca-certificates \
+RUN apt-get update && apt-get upgrade -y && \
+  apt-get install -y --no-install-recommends \
+  ca-certificates \
   wget \
   procps \
   python3 \
