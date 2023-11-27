@@ -5,7 +5,7 @@
 # written by Stephen Beckstrom-Sternberg  #
 # Creates SNP heat/cluster maps           #
 # from SNP matrices                       #
-# - removed pathlib                       #
+# - adjusted sample number & font size    #
 ###########################################
 
 import argparse
@@ -35,15 +35,15 @@ def main(args):
 
     df = read_snp_matrix(SNPmatrix)
     logging.debug('The input SNP matrix:')
-    logging.debug(df)
+    logging.debug(df.to_string())
 
     if len(df.index) > len(df.columns):
-        logging.fatal('This matrix has been melted. Sorry!')
+        logging.fatal('This matrix has been melted. Sorry for your loss!')
         exit(0)
 
     df = clean_and_read_df(df)
     logging.debug('The clean SNP matrix:')
-    logging.debug(df)
+    logging.debug(df.to_string())
 
     (df, fontSize) = determine_heatmap_size(df, SNPmatrix)
     
@@ -85,7 +85,6 @@ def clean_and_read_df(df):
     df = df.iloc[: , 1:]
 
     # Convert column names to strings
-#    df.columns = df.row(0, named=True)
     df.columns = df.columns.map(str)
     
          # Define consensus patterns
@@ -108,12 +107,20 @@ def determine_heatmap_size(df, SNPmatrix):
         exit(0)
 
     # Set output figure size tuple based on number of samples
-    if (numSamples) >= 140:
+    if (numSamples) >=160:
+        fontSize = 1
+    elif (numSamples) >=140:
         fontSize = 2
+    elif (numSamples) >=120:
+        fontSize = 3
     elif (numSamples) >=100:
         fontSize = 4
+    elif (numSamples) >=80:
+        fontSize = 5
     elif (numSamples) >=60:
         fontSize = 6
+    elif (numSamples) >=40:
+        fontSize = 7 
     else:
         fontSize=8    
 
