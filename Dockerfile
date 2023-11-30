@@ -1,8 +1,8 @@
 FROM ubuntu:jammy as app
-ARG HEATCLUSTER_VER="0.4.12"
+ARG HEATCLUSTER_VER="0.4.13"
 
 LABEL base.image="ubuntu:jammy"
-LABEL dockerfile.version="1"
+LABEL dockerfile.version="4"
 LABEL software="heatcluster"
 LABEL software.version="${HEATCLUSTER_VER}"
 LABEL version="${HEATCLUSTER_VER}"
