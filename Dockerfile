@@ -28,9 +28,6 @@ RUN pip3 install --no-cache argparse pandas numpy pathlib seaborn matplotlib sci
 
 RUN pwd && ls -la
 
-RUN echo && ls -lh|tail && echo "DONE"
-CMD [ "/bin/ls", "-l" ]
-
 RUN echo "Installing heatcluster from archive: " && echo
 RUN wget -q https://github.com/DrB-S/heatcluster/archive/refs/tags/v${HEATCLUSTER_VER}.tar.gz && \
   tar -vxf v${HEATCLUSTER_VER}.tar.gz && \
