@@ -22,4 +22,4 @@ jobs:
 
       - name: Docker Build
         run: |
-          docker build -t heatcluster:0.4.12 .
+          docker build -t heatcluster:0.4.13 .
