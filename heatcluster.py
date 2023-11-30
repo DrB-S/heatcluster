@@ -1,11 +1,12 @@
 #!/usr/bin/python3
 
 ###########################################
-# heatcluster-0.4.12                      #
+# heatcluster-0.4.13                      #
 # written by Stephen Beckstrom-Sternberg  #
 # Creates SNP heat/cluster maps           #
 # from SNP matrices                       #
-# - adjusted sample number & font size    #
+# - adjusts font, label and figure sizes  #
+# based on matrix size                    #
 ###########################################
 
 import argparse
@@ -18,6 +19,11 @@ import scipy
 
 logging.basicConfig(format='%(asctime)s - %(message)s', datefmt='%y-%b-%d %H:%M:%S', level=logging.INFO)
 
+"""
+Parse command-line arguments or use defaults
+    
+    Image types: eps, pdf (default), png, svg, tiff
+"""        
 parser = argparse.ArgumentParser()
 parser.add_argument('-i', '--input', type=str, help='input SNP matrix file name', default='snp-dists.txt')
 parser.add_argument('-o', '--out', type=str, help='final file name', default='SNP_matrix')
@@ -27,10 +33,10 @@ args = parser.parse_args()
 
 def main(args):
     """
-    Creates image for SNP matrix.
+    Creates image for SNP matrix
     """
 
-    SNPmatrix=args.input
+    SNPmatrix = args.input
     logging.info('Creating figure for ' + SNPmatrix)
 
     df = read_snp_matrix(SNPmatrix)
@@ -38,17 +44,17 @@ def main(args):
     logging.debug(df.to_string())
 
     if len(df.index) > len(df.columns):
-        logging.fatal('This matrix has been melted. Sorry for your loss!')
+        print('This matrix has been melted. Sorry for your loss!')
         exit(0)
-
+        
     df = clean_and_read_df(df)
     logging.debug('The clean SNP matrix:')
     logging.debug(df.to_string())
 
-    (df, fontSize) = determine_heatmap_size(df, SNPmatrix)
-    
-    create_heatmap(df, fontSize)
-    logging.info("Done")    
+    (df, fontSize, labelSize, figsize) = determine_heatmap_size(df, SNPmatrix)
+
+    create_heatmap(df, fontSize, labelSize, figsize)
+    logging.info("Done")
 def read_snp_matrix(file):
     """
     Reads the SNP matrix into a pandas dataframe.
@@ -84,90 +90,113 @@ def clean_and_read_df(df):
     logging.debug('Dropping the first column')
     df = df.iloc[: , 1:]
 
-    # Convert column names to strings
+    """
+    Convert column names to strings
+    """
     df.columns = df.columns.map(str)
     
-         # Define consensus patterns
+    """
+    Define consensus patterns
+    """
     consensus_patterns = ['snp-dists 0.8.2', '.consensus_threshold_0.6_quality_20', 'Consensus_', 'Unnamed: 0']
     
-    # Replace consensus patterns in column names
+    """
+    Replace consensus patterns in column names
+    """
     df.columns = df.columns.str.replace('|'.join(consensus_patterns), '', regex=True)
 
-    # Setting the index
+    """
+    Setting the index
+    """
     df = df.set_index(df.columns)
 
     return df
 
 def determine_heatmap_size(df, SNPmatrix):
+    """
+    Determine size of heatmap
+    """
     numSamples = len(df.columns)
     logging.info('Found ' + str(numSamples) + ' samples in ' + SNPmatrix)
-
     if numSamples <= 3:
         logging.fatal('This matrix must have 4+ samples. Sorry!')
         exit(0)
 
-    # Set output figure size tuple based on number of samples
-    if (numSamples) >=160:
+    """
+    Set output figure size tuple based on number of samples
+    """
+    if (numSamples) >=120:
         fontSize = 1
-    elif (numSamples) >=140:
-        fontSize = 2
-    elif (numSamples) >=120:
-        fontSize = 3
-    elif (numSamples) >=100:
-        fontSize = 4
+        labelSize = 2
+        figsize = (18, 15)
     elif (numSamples) >=80:
-        fontSize = 5
-    elif (numSamples) >=60:
-        fontSize = 6
+        fontSize = 2
+        labelSize = 3    
+        figsize = (18, 15)
     elif (numSamples) >=40:
-        fontSize = 7 
+        fontSize = 3
+        labelSize = 4    
+        figsize = (11, 8)
+    elif (numSamples) >=30:
+        fontSize = 4 
+        labelSize = 6    
+        figsize = (11, 8)
     else:
-        fontSize=8    
-
+        fontSize= 6    
+        labelSize = 7    
+        figsize = (11, 8)
+    
     logging.debug('The fontSize will be ' + str(fontSize))
     
+    """
+    Sort dataframe and remove empty rows/columns
+    """
     logging.debug('Sorting dataframe and removing empty rows/columns')
     df = df.loc[df.sum(axis=1).sort_values(ascending=True).index]
     df.replace([np.inf, -np.inf], np.nan)
     df.dropna()
 
+    """
+    Reindex columns
+    """
     df = df.reindex(columns=df.index)
     
-    return (df, fontSize)
+    return (df, fontSize, labelSize, figsize)
 
-def create_heatmap(df, fontSize):
+def create_heatmap(df, fontSize, labelSize, figsize):
+    """
+    Create heatmap
+    """
+    fig, ax = plt.subplots(figsize=figsize)
     logging.debug('Creating heatmap')
-    heatmap = sns.clustermap(
+    heatmap = sns.heatmap(
         df,
         xticklabels=True,
         yticklabels=True,
         vmin=0,
-        vmax=80,
-        center=20,
+        vmax=60,
+        center=25,
         annot=True,
         annot_kws={'size': fontSize},
-        cbar_kws={"orientation": "vertical", "pad": 0.5},
+        cbar_kws={'fraction': 0.01},
         cmap='Reds_r',
         linecolor="white",
-        linewidths=.1,
-        fmt='d',
-        col_cluster=False, 
-        row_cluster=False
+        linewidth=0.1,
+        fmt='d'
     )
     
-# Set orientation of axes labels
-    plt.setp(heatmap.ax_heatmap.get_xticklabels(), rotation=45, ha='right',fontsize=fontSize)
-    plt.setp(heatmap.ax_heatmap.get_yticklabels(), rotation='horizontal', fontsize=fontSize)
+    """
+    Set orientation and size of axes labels
+    """
+    plt.setp(heatmap.get_xticklabels(), rotation=45, ha='right', fontsize=labelSize)
+    plt.setp(heatmap.get_yticklabels(), rotation='horizontal', ha='right', fontsize=labelSize)
 
-    plt.title('SNP matrix visualized via heatcluster')
-
-    heatmap.ax_row_dendrogram.set_visible(False)
-    heatmap.ax_col_dendrogram.set_visible(False)
+    plt.title('SNP Matrix Heatmap', fontsize='x-large')
 
     SNP_matrix = args.out
     outfile = (args.out + "." + args.type)
     print("\tOutput file is ", outfile)
-    heatmap.savefig(outfile)
+    plt.savefig(outfile)
 
     plt.show()
 
