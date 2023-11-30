@@ -28,12 +28,19 @@ RUN pip3 install --no-cache argparse pandas numpy pathlib seaborn matplotlib sci
 
 RUN pwd && ls -la
 
-RUN echo "Installing heatcluster from archive: " && echo
-RUN wget -q https://github.com/DrB-S/heatcluster/archive/refs/tags/v${HEATCLUSTER_VER}.tar.gz && \
-  tar -vxf v${HEATCLUSTER_VER}.tar.gz && \
-  pwd && ls -latr && \
-  rm v${HEATCLUSTER_VER}.tar.gz && \
-  cd heatcluster-${HEATCLUSTER_VER} && ls -la 
+#RUN echo "Installing heatcluster from archive: " && echo
+#RUN wget -q https://github.com/DrB-S/heatcluster/archive/refs/tags/v${HEATCLUSTER_VER}.tar.gz && \
+#  tar -vxf v${HEATCLUSTER_VER}.tar.gz && \
+#  pwd && ls -latr && \
+#  rm v${HEATCLUSTER_VER}.tar.gz && \
+#  cd heatcluster-${HEATCLUSTER_VER} && ls -la 
+
+RUN mkdir heatcluster-${HEATCLUSTER_VER} && cd heatcluster-${HEATCLUSTER_VER}
+
+WORKDIR /heatcluster-${HEATCLUSTER_VER}
+COPY . .
+
+RUN ls -la
 
 ENV PATH=/heatcluster-${HEATCLUSTER_VER}:$PATH
 
