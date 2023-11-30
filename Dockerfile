@@ -54,8 +54,8 @@ RUN heatcluster.py --version && echo && \
 heatcluster.py --help
 
 RUN echo && echo "Test a small and medium matrix :" && echo && echo && \
-heatcluster.py -i test/small_matrix.csv -t png -o small && \
-heatcluster.py -i test/med_matrix.txt -t png -o med
+heatcluster.py -i test/small_matrix.csv -t png -o small_test && \
+heatcluster.py -i test/med_matrix.txt -t pdf -o med_test
 
 RUN echo && ls -lh|tail && echo "DONE"
 CMD [ "/bin/ls", "-l" ]
