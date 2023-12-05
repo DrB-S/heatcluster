@@ -1,6 +1,6 @@
 # HeatCluster SNP Matrix Visualization
 
-Welcome to HeatCluster SNP Matrix Visualization, a Python tool for visualizing SNP (Single Nucleotide Polymorphism) matrices generated via [SNP-dists](https://github.com/tseemann/snp-dists) using heatmaps. 
+Welcome to HeatCluster SNP Matrix Visualization, a Python tool for visualizing SNP (Single Nucleotide Polymorphism) matrices generated via [SNP-dists](https://github.com/tseemann/snp-dists) as heatmaps. 
 
 ## Introduction
 
@@ -64,4 +64,4 @@ This will generate a file called 'large_matrix.pdf' from a comma-delimited matri
 
 ## Limitations
 
-Currently most outputs from snp-dists are supported with the exception of getting a molten or melted output (created with the `-m` option of snp-dists).
+Currently most outputs from snp-dists are supported with the exception of a molten or melted output (created with the `-m` option of snp-dists).
