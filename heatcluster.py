@@ -1,7 +1,7 @@
 #!/usr/bin/python3
 
 ###########################################
-# heatcluster-0.4.13                      #
+# heatcluster-1.0.0                      #
 # written by Stephen Beckstrom-Sternberg  #
 # Creates SNP heat/cluster maps           #
 # from SNP matrices                       #
@@ -28,7 +28,7 @@ parser = argparse.ArgumentParser()
 parser.add_argument('-i', '--input', type=str, help='input SNP matrix file name', default='snp-dists.txt')
 parser.add_argument('-o', '--out', type=str, help='final file name', default='SNP_matrix')
 parser.add_argument('-t', '--type', type=str, help='file extension for final image', default = 'pdf')
-parser.add_argument('-v', '--version', help='print version and exit', action='version', version='%(prog)s ' + '0.4.12')
+parser.add_argument('-v', '--version', help='print version and exit', action='version', version='%(prog)s ' + '1.0.0')
 args = parser.parse_args()
 
 def main(args):
@@ -51,9 +51,9 @@ def main(args):
     logging.debug('The clean SNP matrix:')
     logging.debug(df.to_string())
 
-    (df, fontSize, labelSize, figsize) = determine_heatmap_size(df, SNPmatrix)
+    (df, fontSize, labelSize, figsize, labels) = determine_heatmap_size(df, SNPmatrix)
 
-    create_heatmap(df, fontSize, labelSize, figsize)
+    create_heatmap(df, fontSize, labelSize, figsize, labels)
     logging.info("Done")
 def read_snp_matrix(file):
     """
@@ -160,10 +160,16 @@ def determine_heatmap_size(df, SNPmatrix):
     Reindex columns
     """
     df = df.reindex(columns=df.index)
-    
-    return (df, fontSize, labelSize, figsize)
 
-def create_heatmap(df, fontSize, labelSize, figsize):
+    """
+    Replace 1000's with K
+    """
+
+    labels = df.applymap(lambda v: v/1000." K" if v > 1000 else v)
+    
+    return (df, fontSize, labelSize, figsize, labels)
+
+def create_heatmap(df, fontSize, labelSize, figsize, labels):
     """
     Create heatmap
     """
@@ -176,7 +182,8 @@ def create_heatmap(df, fontSize, labelSize, figsize):
         vmin=0,
         vmax=60,
         center=25,
-        annot=True,
+        #annot=True,
+        annot=labels,
         annot_kws={'size': fontSize},
         cbar_kws={'fraction': 0.01},
         cmap='Reds_r',
