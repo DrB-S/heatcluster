@@ -1,12 +1,11 @@
 #!/usr/bin/python3
 
 ###########################################
-# heatcluster-1.0.1                       #
+# heatcluster-1.0.2                       #
 # written by Stephen Beckstrom-Sternberg  #
 # Creates SNP heatmaps                    #
 # from SNP matrices                       #
-# - adjusts font, label and figure sizes  #
-# based on matrix size                    #
+# Outputs sorted csv SNP matrix           #
 ###########################################
 
 import argparse
@@ -29,7 +28,7 @@ parser = argparse.ArgumentParser()
 parser.add_argument('-i', '--input', type=str, help='input SNP matrix file name', default='snp-dists.txt')
 parser.add_argument('-o', '--out', type=str, help='final file name', default='SNP_matrix')
 parser.add_argument('-t', '--type', type=str, help='file extension for final image', default='pdf')
-parser.add_argument('-v', '--version', help='print version and exit', action='version', version='%(prog)s ' + '1.0.1')
+parser.add_argument('-v', '--version', help='print version and exit', action='version', version='%(prog)s ' + '1.0.2')
 args = parser.parse_args()
 
 def main(args):
@@ -169,6 +168,11 @@ def determine_heatmap_size(df, SNPmatrix):
 
     labels = df.applymap(lambda v: f'{v/1000:.2f} K' if v > 1000 
                          and v <= 10000 else '10K+' if v > 10000 else f'{v:.0f}')
+    """
+    Save sorted csv SNP matrix
+    """
+
+    labels.to_csv('sorted_matrix.csv', index=True, encoding='utf-8')
 
     return (df, fontSize, labelSize, figsize, labels)
 
