@@ -1,12 +1,11 @@
 #!/usr/bin/python3
 
 ###########################################
-# heatcluster-1.0.1                       #
+# heatcluster-1.0.2                       #
 # written by Stephen Beckstrom-Sternberg  #
 # Creates SNP heatmaps                    #
 # from SNP matrices                       #
-# - adjusts font, label and figure sizes  #
-# based on matrix size                    #
+# Outputs sorted csv SNP matrix           #
 ###########################################
 
 import argparse
@@ -169,6 +168,11 @@ def determine_heatmap_size(df, SNPmatrix):
 
     labels = df.applymap(lambda v: f'{v/1000:.2f} K' if v > 1000 
                          and v <= 10000 else '10K+' if v > 10000 else f'{v:.0f}')
+    """
+    Save sorted csv SNP matrix
+    """
+
+    df.to_csv('sorted_matrix.csv', index=True, encoding='utf-8')
 
     return (df, fontSize, labelSize, figsize, labels)
 
