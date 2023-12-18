@@ -172,7 +172,7 @@ def determine_heatmap_size(df, SNPmatrix):
     Save sorted csv SNP matrix
     """
 
-    df.to_csv('sorted_matrix.csv', index=True, encoding='utf-8')
+    labels.to_csv('sorted_matrix.csv', index=True, encoding='utf-8')
 
     return (df, fontSize, labelSize, figsize, labels)
 
