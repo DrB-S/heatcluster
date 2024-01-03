@@ -43,7 +43,6 @@ jobs:
           target: app
           tags: heatcluster:${{ github.event.inputs.version }}
 
-      - name: L
       - name: Build and push latest tag to Quay
         uses: docker/build-push-action@v3
         with:
