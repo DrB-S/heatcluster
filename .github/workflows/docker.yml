@@ -37,7 +37,7 @@ jobs:
           build-args: HEATCLUSTER_VER=${{ github.event.inputs.version }}
           push: true
           target: app
-          tags: <insert repo>:${{ github.event.inputs.version }}
+          tags: heatcluster:${{ github.event.inputs.version }}
 
       - name: Build and push latest tag to Quay
         uses: docker/build-push-action@v3
@@ -46,4 +46,4 @@ jobs:
           build-args: HEATCLUSTER_VER=${{ github.event.inputs.version }}
           push: true
           target: app
-          tags: <insert repo>:latest   
+          tags: heatcluster:latest   
