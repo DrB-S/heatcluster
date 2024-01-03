@@ -19,8 +19,12 @@ jobs:
         env:
           DOCKER_USER: ${{ secrets.DOCKER_USER }}
           DOCKER_PASSWORD: ${{ secrets.DOCKER_PASSWORD }}
+          QUAY_USER: ${{ secrets.QUAY_USER }}
+          QUAY_PASSWORD: ${{ secrets.QUAY_PASSWORD }}
+          
         run: |
           docker login -u $DOCKER_USER -p $DOCKER_PASSWORD
+          quay.io login -u $QUAY_USER -p $QUAY_PASSWORD
 
       - name: Docker Build
         run: |
@@ -39,6 +43,7 @@ jobs:
           target: app
           tags: heatcluster:${{ github.event.inputs.version }}
 
+      - name: L
       - name: Build and push latest tag to Quay
         uses: docker/build-push-action@v3
         with:
