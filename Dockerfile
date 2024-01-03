@@ -35,12 +35,12 @@ RUN pwd && ls -latr
 RUN rm v${HEATCLUSTER_VER}.tar.gz
 RUN cd heatcluster-${HEATCLUSTER_VER} && ls -la 
 
-RUN mkdir heatcluster-${HEATCLUSTER_VER} && cd heatcluster-${HEATCLUSTER_VER}
+#RUN mkdir heatcluster-${HEATCLUSTER_VER} && cd heatcluster-${HEATCLUSTER_VER}
+#
+#WORKDIR /heatcluster-${HEATCLUSTER_VER}
+#COPY . .
 
-WORKDIR /heatcluster-${HEATCLUSTER_VER}
-COPY . .
-
-RUN ls -la
+#RUN ls -la
 
 ENV PATH=/heatcluster-${HEATCLUSTER_VER}:$PATH
 
