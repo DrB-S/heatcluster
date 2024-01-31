@@ -68,18 +68,16 @@ def read_snp_matrix(file):
         file (str): SNP dist output file that should be converted to pandas dataframe
         
     Returns:
-        df (DataFrame): Pandas dataframe of SNP matrix.
+        df (DataFrame): Polars dataframe of SNP matrix.
     """
     logging.debug('Determining if file is comma or tab delimited')
-    tabs   = pd.read_csv(file, nrows=1, sep='\t').shape[1]
-    commas = pd.read_csv(file, nrows=1, sep=',').shape[1]
+    tabs   = pl.scan_csv(file, nrows=1, sep='\t').shape[1]
+    commas = pl.scan_csv(file, nrows=1, sep=',').shape[1]
     if tabs > commas:
         logging.debug('The file is tab-delimited')
-        #df = pd.read_csv(file, sep='\t', index_col=False)
         df = pl.scan_csv(file, sep='\t', index_col=False)
     else:
         logging.debug('The file is comma-delimited')
-        #df = pd.read_csv(file, sep=',', index_col=False)
         df = pl.scan_csv(file, sep=',', index_col=False)
     return df
 
