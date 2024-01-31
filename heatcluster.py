@@ -75,11 +75,12 @@ def read_snp_matrix(file):
     commas = pd.read_csv(file, nrows=1, sep=',').shape[1]
     if tabs > commas:
         logging.debug('The file is tab-delimited')
-        df = pd.read_csv(file, sep='\t', index_col=False)
+        #df = pd.read_csv(file, sep='\t', index_col=False)
+        df = pl.scan_csv(file, sep='\t', index_col=False)
     else:
         logging.debug('The file is comma-delimited')
-        df = pd.read_csv(file, sep=',', index_col=False)
-        
+        #df = pd.read_csv(file, sep=',', index_col=False)
+        df = pl.scan_csv(file, sep=',', index_col=False)
     return df
 
 def clean_and_read_df(df):
@@ -186,7 +187,8 @@ def create_heatmap(df, fontSize, labelSize, figsize, labels):
     fig,ax = plt.subplots(figsize=figsize)
     logging.debug('Creating heatmap')
     
-    heatmap = sns.heatmap(
+    #heatmap = sns.heatmap(
+    heatmap = snl.heatmap(
         df,
         xticklabels=True,
         yticklabels=True,
