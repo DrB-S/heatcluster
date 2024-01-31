@@ -1,7 +1,7 @@
 FROM ubuntu:jammy as app
 
 # default version
-ARG HEATCLUSTER_VER="1.1.0"
+ARG HEATCLUSTER_VER="1.1.0.20240131"
 
 # adding labels
 LABEL base.image="ubuntu:jammy"
