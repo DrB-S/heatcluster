@@ -1,11 +1,12 @@
 #!/usr/bin/python3
 
 ###########################################
-# heatcluster-1.0.2c                       #
+# heatcluster-1.1.0.20240131              #
 # written by Stephen Beckstrom-Sternberg  #
 # Creates SNP heatmaps                    #
 # from SNP matrices                       #
 # Outputs sorted csv SNP matrix           #
+# Uses Polars instead of Pandas           #
 ###########################################
 
 import argparse
@@ -16,6 +17,9 @@ import seaborn as sns
 import matplotlib
 matplotlib.use('agg')
 import matplotlib.pyplot as plt
+import polars as pl
+import seaborn_polars as snl
+
 
 logging.basicConfig(format='%(asctime)s - %(message)s', datefmt='%y-%b-%d %H:%M:%S', level=logging.INFO)
 
