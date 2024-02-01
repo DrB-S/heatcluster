@@ -1,7 +1,7 @@
 #!/usr/bin/python3
 
 ###########################################
-# heatcluster-1.1.0.20240131              #
+# heatcluster-1.2.0.20240201              #
 # written by Stephen Beckstrom-Sternberg  #
 # Creates SNP heatmaps                    #
 # from SNP matrices                       #
@@ -24,7 +24,7 @@ parser = argparse.ArgumentParser()
 parser.add_argument('-i', '--input', type=str, help='input SNP matrix file name', default='snp-dists.txt')
 parser.add_argument('-o', '--out', type=str, help='final file name', default='SNP_matrix')
 parser.add_argument('-t', '--type', type=str, help='file extension for final image', default='pdf')
-parser.add_argument('-v', '--version', help='print version and exit', action='version', version='%(prog)s ' + '1.0.2c')
+parser.add_argument('-v', '--version', help='print version and exit', action='version', version='%(prog)s ' + '1.2.0.20240201')
 args = parser.parse_args()
 
 def main(args):
@@ -33,7 +33,7 @@ def main(args):
 
     df = read_snp_matrix(SNPmatrix)
     logging.debug('The input SNP matrix:')
-    logging.debug(df.to_string())
+    logging.debug(df)
 
     if len(df.columns) > len(df.rows):
         print('This matrix has been melted. Sorry for your loss!')
