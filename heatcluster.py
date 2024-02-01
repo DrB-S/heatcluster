@@ -24,7 +24,7 @@ parser = argparse.ArgumentParser()
 parser.add_argument('-i', '--input', type=str, help='input SNP matrix file name', default='snp-dists.txt')
 parser.add_argument('-o', '--out', type=str, help='final file name', default='SNP_matrix')
 parser.add_argument('-t', '--type', type=str, help='file extension for final image', default='pdf')
-parser.add_argument('-v', '--version', help='print version and exit', action='version', version='%(prog)s ' + '1.2.0.20240201')
+parser.add_argument('-v', '--version', help='print version and exit', action='version', version='%(prog)s ' + '1.0.2c')
 args = parser.parse_args()
 
 def main(args):
@@ -33,11 +33,11 @@ def main(args):
 
     df = read_snp_matrix(SNPmatrix)
     logging.debug('The input SNP matrix:')
-    logging.debug(df)
+    logging.debug(df.to_string())
 
     #if len(df.columns) > len(df.rows):
     #    print('This matrix has been melted. Sorry for your loss!')
-    #   exit(0)
+    #    exit(0)
         
     df = clean_and_read_df(df)
     logging.debug('The clean SNP matrix:')
@@ -108,7 +108,7 @@ def determine_heatmap_size(df, SNPmatrix):
     df = df.sort("0").dropna()
 
     labels = df.map(lambda v: '10K+' if v > 10000 else v)
-    labels.to_csv('sorted_matrix.csv', index=True, sep='\t')
+    labels.to_csv('sorted_matrix.csv', index=True, separator='\t')
 
     return (df, fontSize, labelSize, figsize, labels)
 
