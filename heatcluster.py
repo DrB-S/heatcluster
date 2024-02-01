@@ -76,10 +76,10 @@ def read_snp_matrix(file):
     commas = pl.scan_csv(file, n_rows=1, separator=',')
     if len(tabs.columns) > len(commas.columns):
         logging.debug('The file is tab-delimited')
-        df = pl.scan_csv(file, separator='\t')
+        df = pl.scan_csv(file, separator='\t', row_index_name=None)
     else:
         logging.debug('The file is comma-delimited')
-        df = pl.scan_csv(file, separator=',')
+        df = pl.scan_csv(file, separator=',', row_index_name=None)
     return df
 
 def clean_and_read_df(df):
@@ -92,8 +92,9 @@ def clean_and_read_df(df):
     Returns:
         df (DataFrame): Cleaned DataFrame.
     """
-    logging.debug('Dropping the first column')
-    df = df[:, 1:] # changed from df.iloc[:, 1:]
+    #logging.debug('Dropping the first column') # taken care of in lines 79 and 82
+    #df = df[:, 1:] # changed from df.iloc[:, 1:]
+    
 
     """
     Convert column names to strings
