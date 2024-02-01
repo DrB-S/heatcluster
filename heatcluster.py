@@ -70,7 +70,7 @@ def clean_and_read_df(df):
     
     #df = df.select([pl.col(col).replace(consensus_patterns, '') for col in df.columns])
     
-    df = df.set_index("0")
+    #df = df.set_index("0")
 
     return df
 
