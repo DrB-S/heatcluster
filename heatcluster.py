@@ -46,15 +46,15 @@ def main(args):
 
     df = read_snp_matrix(SNPmatrix)
     logging.debug('The input SNP matrix:')
-    logging.debug(df.to_string())
+    #logging.debug(df.to_string())
 
-    if len(df.index) > len(df.columns):
-        print('This matrix has been melted. Sorry for your loss!')
-        exit(0)
+    #if len(df.index) > len(df.columns):
+    #    print('This matrix has been melted. Sorry for your loss!')
+    #    exit(0)
         
     df = clean_and_read_df(df)
-    logging.debug('The clean SNP matrix:')
-    logging.debug(df.to_string())
+    logging.debug('Cleaning SNP matrix')
+    #logging.debug(df.to_string())
 
     (df, fontSize, labelSize, figsize, labels) = determine_heatmap_size(df, SNPmatrix)
 
@@ -72,14 +72,14 @@ def read_snp_matrix(file):
         df (DataFrame): Polars dataframe of SNP matrix.
     """
     logging.debug('Determining if file is comma or tab delimited')
-    tabs   = pl.scan_csv(file, n_rows=1, separator='\t').shape[1]
-    commas = pl.scan_csv(file, n_rows=1, separator=',').shape[1]
-    if tabs > commas:
-        logging.debug('The file is tab-delimited')
-        df = pl.scan_csv(file, separator='\t', index_col=False)
+    tabs   = pl.scan_csv(file, n_rows=1, separator='\t')
+    commas = pl.scan_csv(file, n_rows=1, separator=',')
+    if len(tabs.columns) > len(commas.columns):
+        logging.debug('The file is tab-delimited: tabs')
+        df = pl.scan_csv(file, separator='\t', row_index_name=None, has_header=True)
     else:
-        logging.debug('The file is comma-delimited')
-        df = pl.scan_csv(file, separator=',', index_col=False)
+        logging.debug('The file is comma-delimited: commas')
+        df = pl.scan_csv(file, separator=',', row_index_name=None, has_header=True)
     return df
 
 def clean_and_read_df(df):
@@ -92,13 +92,14 @@ def clean_and_read_df(df):
     Returns:
         df (DataFrame): Cleaned DataFrame.
     """
-    logging.debug('Dropping the first column')
-    df = df.iloc[:, 1:]
+    #logging.debug('Dropping the first column') # taken care of in lines 79 and 82
+    #df = df[:, 1:] # changed from df.iloc[:, 1:]
+    
 
     """
     Convert column names to strings
     """
-    df.columns = df.columns.map(str)
+    #df.columns = df.columns.map(str) #df.columns.map doesn't work in Polars, so see if line 112 will work without it
     
     """
     Define consensus patterns
@@ -108,12 +109,13 @@ def clean_and_read_df(df):
     """
     Replace consensus patterns in column names
     """
-    df.columns = df.columns.str.replace('|'.join(consensus_patterns), '', regex=True)
+    #df.columns = df.columns.str.replace('|'.join(consensus_patterns), '', regex=True)
+    #df.columns = list(map(lambda x: x.replace('|'.join(consensus_patterns), '', regex=True), df.columns)) 
 
     """
     Setting the index
     """
-    df = df.set_index(df.columns)
+    #df = df.set_index(df.columns)
 
     return df
 
@@ -156,10 +158,13 @@ def determine_heatmap_size(df, SNPmatrix):
     """
     Sort dataframe and remove empty rows/columns
     """
+    logging.debug(f'The unsorted dataframe: {df}')
     logging.debug('Sorting dataframe and removing empty rows/columns')
-    df = df.loc[df.sum(axis=1).sort_values(ascending=True).index]
-    df.replace([np.inf, -np.inf], np.nan)
-    df.dropna()
+    #df = df.loc[df.sum(axis=1).sort_values(ascending=True).index]
+    
+    #df.replace([np.inf, -np.inf], np.nan)
+    #df.dropna()
+    df.filter(~pl.all_horizontal(pl.all().is_null())).collect() #see if this works to drop rows with all nulls
 
     """
     Reindex columns
