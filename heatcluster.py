@@ -64,7 +64,7 @@ def clean_and_read_df(df):
     logging.debug('Dropping the first column')
     df = df.drop("0")
 
-    df = df.with_columns(df.columns().map(str))
+    #df = df.with_columns(df.columns().map(str))
     
     consensus_patterns = ['snp-dists 0.8.2', '.consensus_threshold_0.6_quality_20', 'Consensus_', 'Unnamed: 0']
     
