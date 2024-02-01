@@ -1,7 +1,7 @@
 FROM ubuntu:jammy as app
 
 # default version
-ARG HEATCLUSTER_VER="1.0.2c"
+ARG HEATCLUSTER_VER="1.2.0.20240201"
 
 # adding labels
 LABEL base.image="ubuntu:jammy"
@@ -27,7 +27,7 @@ RUN apt-get update && apt-get upgrade -y && \
   apt-get autoclean && rm -rf /var/lib/apt/lists/*
 
 # installing python dependencies
-RUN pip3 install --no-cache argparse pandas numpy pathlib seaborn matplotlib scipy --upgrade-strategy=only-if-needed
+RUN pip3 install --no-cache argparse pandas numpy pathlib seaborn seaborn_polars polars pyarrow matplotlib scipy --upgrade-strategy=only-if-needed
 
 # copying files to docker image
 COPY . /heatcluster
