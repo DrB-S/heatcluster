@@ -99,7 +99,7 @@ def clean_and_read_df(df):
     """
     Convert column names to strings
     """
-    #df.columns = df.columns.map(str) #df.columns.map doesn't work in Polars, so see it line 112 will work without it
+    #df.columns = df.columns.map(str) #df.columns.map doesn't work in Polars, so see if line 112 will work without it
     
     """
     Define consensus patterns
@@ -158,8 +158,10 @@ def determine_heatmap_size(df, SNPmatrix):
     """
     Sort dataframe and remove empty rows/columns
     """
+    logging.debug(f'The unsorted dataframe: {df}')
     logging.debug('Sorting dataframe and removing empty rows/columns')
-    df = df.loc[df.sum(axis=1).sort_values(ascending=True).index]
+    #df = df.loc[df.sum(axis=1).sort_values(ascending=True).index]
+    
     df.replace([np.inf, -np.inf], np.nan)
     df.dropna()
 
