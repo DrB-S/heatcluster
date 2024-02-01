@@ -68,7 +68,7 @@ def clean_and_read_df(df):
     
     consensus_patterns = ['snp-dists 0.8.2', '.consensus_threshold_0.6_quality_20', 'Consensus_', 'Unnamed: 0']
     
-    df = df.select([pl.col(col).replace(consensus_patterns, '') for col in df.columns])
+    #df = df.select([pl.col(col).replace(consensus_patterns, '') for col in df.columns])
     
     df = df.set_index("0")
 
