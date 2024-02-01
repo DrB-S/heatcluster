@@ -35,9 +35,9 @@ def main(args):
     logging.debug('The input SNP matrix:')
     logging.debug(df)
 
-    if len(df.columns) > len(df.rows):
-        print('This matrix has been melted. Sorry for your loss!')
-        exit(0)
+    #if len(df.columns) > len(df.rows):
+    #    print('This matrix has been melted. Sorry for your loss!')
+    #   exit(0)
         
     df = clean_and_read_df(df)
     logging.debug('The clean SNP matrix:')
