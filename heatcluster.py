@@ -50,14 +50,14 @@ def main(args):
 
 def read_snp_matrix(file):
     logging.debug('Determining if file is comma or tab delimited')
-    tabs   = pl.scan_csv(file, n_rows=1, sep='\t')
-    commas = pl.scan_csv(file, n_rows=1, sep=',')
+    tabs   = pl.scan_csv(file, n_rows=1, separator='\t')
+    commas = pl.scan_csv(file, n_rows=1, separator=',')
     if len(tabs.columns) > len(commas.columns):
         logging.debug('The file is tab-delimited')
-        df = pl.read_csv(file, sep='\t')
+        df = pl.read_csv(file, separator='\t')
     else:
         logging.debug('The file is comma-delimited')
-        df = pl.read_csv(file, sep=',')
+        df = pl.read_csv(file, separator=',')
     return df
 
 def clean_and_read_df(df):
