@@ -163,7 +163,8 @@ def determine_heatmap_size(df, SNPmatrix):
     #df = df.loc[df.sum(axis=1).sort_values(ascending=True).index]
     
     #df.replace([np.inf, -np.inf], np.nan)
-    df.dropna()
+    #df.dropna()
+    df.filter(~pl.all_horizontal(pl.all().is_null())).collect() #see if this works to drop rows with all nulls
 
     """
     Reindex columns
