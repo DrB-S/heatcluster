@@ -48,12 +48,12 @@ def main(args):
     logging.debug('The input SNP matrix:')
     #logging.debug(df.to_string())
 
-    if len(df.index) > len(df.columns):
-        print('This matrix has been melted. Sorry for your loss!')
-        exit(0)
+    #if len(df.index) > len(df.columns):
+    #    print('This matrix has been melted. Sorry for your loss!')
+    #    exit(0)
         
     df = clean_and_read_df(df)
-    logging.debug('The clean SNP matrix:')
+    logging.debug('Cleaning SNP matrix')
     #logging.debug(df.to_string())
 
     (df, fontSize, labelSize, figsize, labels) = determine_heatmap_size(df, SNPmatrix)
@@ -93,7 +93,7 @@ def clean_and_read_df(df):
         df (DataFrame): Cleaned DataFrame.
     """
     logging.debug('Dropping the first column')
-    df = df.iloc[:, 1:]
+    df = df[:, 1:] # changed from df.iloc[:, 1:]
 
     """
     Convert column names to strings
