@@ -19,6 +19,7 @@ matplotlib.use('agg')
 import matplotlib.pyplot as plt
 import polars as pl
 import seaborn_polars as snl
+import pyarrow
 
 
 logging.basicConfig(format='%(asctime)s - %(message)s', datefmt='%y-%b-%d %H:%M:%S', level=logging.INFO)
