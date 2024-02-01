@@ -110,7 +110,7 @@ def clean_and_read_df(df):
     Replace consensus patterns in column names
     """
     #df.columns = df.columns.str.replace('|'.join(consensus_patterns), '', regex=True)
-    df.columns = list(map(lambda x: x.replace('|'.join(consensus_patterns), '', regex=True), df.columns)) 
+    #df.columns = list(map(lambda x: x.replace('|'.join(consensus_patterns), '', regex=True), df.columns)) 
 
     """
     Setting the index
