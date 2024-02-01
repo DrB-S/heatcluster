@@ -76,10 +76,10 @@ def read_snp_matrix(file):
     commas = pl.scan_csv(file, n_rows=1, separator=',')
     if len(tabs.columns) > len(commas.columns):
         logging.debug('The file is tab-delimited')
-        df = pl.scan_csv(file, separator='\t', row_index_name=None)
+        df = pl.scan_csv(file, separator='\t', row_index_name=None, has_header=True)
     else:
         logging.debug('The file is comma-delimited')
-        df = pl.scan_csv(file, separator=',', row_index_name=None)
+        df = pl.scan_csv(file, separator=',', row_index_name=None, has_header=True)
     return df
 
 def clean_and_read_df(df):
@@ -99,7 +99,7 @@ def clean_and_read_df(df):
     """
     Convert column names to strings
     """
-    df.columns = df.columns.map(str)
+    #df.columns = df.columns.map(str) #df.columns.map doesn't work in Polars, so see it line 112 will work without it
     
     """
     Define consensus patterns
