@@ -115,7 +115,7 @@ def clean_and_read_df(df):
     """
     Setting the index
     """
-    df = df.set_index(df.columns)
+    #df = df.set_index(df.columns)
 
     return df
 
