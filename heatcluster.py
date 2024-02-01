@@ -33,7 +33,7 @@ def main(args):
 
     df = read_snp_matrix(SNPmatrix)
     logging.debug('The input SNP matrix:')
-    logging.debug(df.to_string())
+    logging.debug(df)
 
     #if len(df.columns) > len(df.rows):
     #    print('This matrix has been melted. Sorry for your loss!')
@@ -41,7 +41,7 @@ def main(args):
         
     df = clean_and_read_df(df)
     logging.debug('The clean SNP matrix:')
-    logging.debug(df.to_string())
+    logging.debug(df)
 
     (df, fontSize, labelSize, figsize, labels) = determine_heatmap_size(df, SNPmatrix)
 
