@@ -72,14 +72,14 @@ def read_snp_matrix(file):
         df (DataFrame): Polars dataframe of SNP matrix.
     """
     logging.debug('Determining if file is comma or tab delimited')
-    tabs   = pl.scan_csv(file, n_rows=1, sep='\t').shape[1]
-    commas = pl.scan_csv(file, n_rows=1, sep=',').shape[1]
+    tabs   = pl.scan_csv(file, n_rows=1, separator='\t').shape[1]
+    commas = pl.scan_csv(file, n_rows=1, separator=',').shape[1]
     if tabs > commas:
         logging.debug('The file is tab-delimited')
-        df = pl.scan_csv(file, sep='\t', index_col=False)
+        df = pl.scan_csv(file, separator='\t', index_col=False)
     else:
         logging.debug('The file is comma-delimited')
-        df = pl.scan_csv(file, sep=',', index_col=False)
+        df = pl.scan_csv(file, separator=',', index_col=False)
     return df
 
 def clean_and_read_df(df):
