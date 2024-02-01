@@ -106,8 +106,8 @@ def determine_heatmap_size(df, SNPmatrix):
     
     logging.debug('Sorting dataframe and removing empty rows/columns')
     #df = df.sort("0").dropna()
-    df = df.sort("0").collect()
-    df = df.drop_nulls().collect()
+    ##df = df.sort("0").collect()
+    ##df = df.drop_nulls().collect()
 
     labels = df.map(lambda v: '10K+' if v > 10000 else v)
     labels.to_csv('sorted_matrix.csv', index=True, separator='\t')
