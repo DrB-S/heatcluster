@@ -1,11 +1,12 @@
 #!/usr/bin/python3
 
 ###########################################
-# heatcluster-1.0.2c                       #
+# heatcluster-1.1.0.20240131              #
 # written by Stephen Beckstrom-Sternberg  #
 # Creates SNP heatmaps                    #
 # from SNP matrices                       #
 # Outputs sorted csv SNP matrix           #
+# Uses Polars instead of Pandas           #
 ###########################################
 
 import argparse
@@ -16,6 +17,10 @@ import seaborn as sns
 import matplotlib
 matplotlib.use('agg')
 import matplotlib.pyplot as plt
+import polars as pl
+import seaborn_polars as snl
+import pyarrow
+
 
 logging.basicConfig(format='%(asctime)s - %(message)s', datefmt='%y-%b-%d %H:%M:%S', level=logging.INFO)
 
@@ -64,18 +69,17 @@ def read_snp_matrix(file):
         file (str): SNP dist output file that should be converted to pandas dataframe
         
     Returns:
-        df (DataFrame): Pandas dataframe of SNP matrix.
+        df (DataFrame): Polars dataframe of SNP matrix.
     """
     logging.debug('Determining if file is comma or tab delimited')
-    tabs   = pd.read_csv(file, nrows=1, sep='\t').shape[1]
-    commas = pd.read_csv(file, nrows=1, sep=',').shape[1]
+    tabs   = pl.scan_csv(file, n_rows=1, separator='\t').shape[1]
+    commas = pl.scan_csv(file, n_rows=1, separator=',').shape[1]
     if tabs > commas:
         logging.debug('The file is tab-delimited')
-        df = pd.read_csv(file, sep='\t', index_col=False)
+        df = pl.scan_csv(file, separator='\t', index_col=False)
     else:
         logging.debug('The file is comma-delimited')
-        df = pd.read_csv(file, sep=',', index_col=False)
-        
+        df = pl.scan_csv(file, separator=',', index_col=False)
     return df
 
 def clean_and_read_df(df):
@@ -182,7 +186,8 @@ def create_heatmap(df, fontSize, labelSize, figsize, labels):
     fig,ax = plt.subplots(figsize=figsize)
     logging.debug('Creating heatmap')
     
-    heatmap = sns.heatmap(
+    #heatmap = sns.heatmap(
+    heatmap = snl.heatmap(
         df,
         xticklabels=True,
         yticklabels=True,
