@@ -162,7 +162,7 @@ def determine_heatmap_size(df, SNPmatrix):
     logging.debug('Sorting dataframe and removing empty rows/columns')
     #df = df.loc[df.sum(axis=1).sort_values(ascending=True).index]
     
-    df.replace([np.inf, -np.inf], np.nan)
+    #df.replace([np.inf, -np.inf], np.nan)
     df.dropna()
 
     """
