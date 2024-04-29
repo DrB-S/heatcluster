@@ -166,7 +166,7 @@ def determine_heatmap_size(df, SNPmatrix):
     Replace 10000+ with 10K
     """
 
-    labels = df.map(lambda v: '10K+' if v > 10000 else v)
+    labels = df.applymap(lambda v: '10K+' if v > 10000 else v)
     """
     Save sorted csv SNP matrix
     """
