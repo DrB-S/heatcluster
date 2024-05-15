@@ -1,7 +1,7 @@
 #!/usr/bin/python3
 
 ###########################################
-# heatcluster-1.2.0.20240201              #
+# heatcluster-1.2.0.20240515_a            #
 # written by Stephen Beckstrom-Sternberg  #
 # Creates SNP heatmaps                    #
 # from SNP matrices                       #
@@ -109,8 +109,17 @@ def determine_heatmap_size(df, SNPmatrix):
     ##df = df.sort("0").collect()
     ##df = df.drop_nulls().collect()
 
-    labels = df.map(lambda v: '10K+' if v > 10000 else v)
-    labels.to_csv('sorted_matrix.csv', index=True, separator='\t')
+    # Apply the function to each column in the DataFrame
+    for col in df.columns:
+    labels = df.with_column(df[col].apply(replace_large_values).alias(col))
+
+    
+    #labels = df.map_rows(lambda v: '10K+' if v > 10000 else v)
+    """
+    Save sorted csv SNP matrix
+    """
+
+    labels.to_csv('sorted_matrix.csv', index=True, encoding='utf-8')
 
     return (df, fontSize, labelSize, figsize, labels)
 
