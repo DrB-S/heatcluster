@@ -1,7 +1,7 @@
 #!/usr/bin/python3
 
 ###########################################
-# heatcluster-1.2.0.20240201              #
+# heatcluster-1.2.0.20240515              #
 # written by Stephen Beckstrom-Sternberg  #
 # Creates SNP heatmaps                    #
 # from SNP matrices                       #
