@@ -61,8 +61,8 @@ def read_snp_matrix(file):
     return df
 
 def clean_and_read_df(df):
-    logging.debug('Dropping the first column')
-    df = df.drop("0")
+#    logging.debug('Dropping the first column')
+#    df = df.drop("0")
 
     #df = df.with_columns(df.columns().map(str))
     
