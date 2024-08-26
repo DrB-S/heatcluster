@@ -111,7 +111,7 @@ def determine_heatmap_size(df, SNPmatrix):
 
     # Apply the function to each column in the DataFrame
     for col in df.columns:
-        labels = df.with_column(df[col].apply(replace_large_values).alias(col))
+        labels = df.with_columns(df[col].apply(replace_large_values).alias(col))
 
     """
     Save sorted csv SNP matrix
