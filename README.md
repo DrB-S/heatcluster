@@ -28,7 +28,6 @@ heatcluster requires
   - seaborn
   - matplotlib
   - pathlib
-  - scipy
 
 ```bash
 pip3 install argparse logging pandas numpy seaborn matplotlib pathlib
