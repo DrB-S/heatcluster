@@ -28,7 +28,6 @@ heatcluster requires
   - seaborn
   - matplotlib
   - pathlib
-  - scipy
 
 ```bash
 pip3 install argparse logging pandas numpy seaborn matplotlib pathlib
@@ -37,7 +36,9 @@ pip3 install argparse logging pandas numpy seaborn matplotlib pathlib
 ## Running heatcluster.py
 
 ```
-usage: heatcluster.py [-h] -i INPUT [-o OUT] [-t TYPE] [-v]
+usage: python heatcluster.py [-h] -i INPUT [-o OUT] [-t TYPE] [-v]
+
+requires: python3.12+
 
 options:
   -h, --help                show this help message and exit
@@ -51,13 +52,13 @@ Multiple test files are located in [test](./test) which can be used for troubles
 
 Examples:
 ```
-heatcluster.py -i test/small_matrix.csv -o small_matrix -t png
+python heatcluster.py -i test/small_matrix.csv -o small_matrix -t png
 ```
 
 This will generate a file called 'small_matrix.png'.
 
 ```
-heatcluster.py -i test/large_matrix.csv -o large_matrix
+python heatcluster.py -i test/large_matrix.csv -o large_matrix
 ```
 
 This will generate a file called 'large_matrix.pdf' from a comma-delimited matrix.
