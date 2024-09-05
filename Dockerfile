@@ -27,7 +27,7 @@ RUN apt-get update && apt-get upgrade -y && \
   apt-get autoclean && rm -rf /var/lib/apt/lists/*
 
 # installing python dependencies
-RUN pip3 install --no-cache argparse pandas numpy pathlib seaborn matplotlib scipy --upgrade-strategy=only-if-needed
+RUN pip3 install --no-cache argparse pandas numpy pathlib seaborn matplotlib --upgrade-strategy=only-if-needed
 
 # copying files to docker image
 COPY . /heatcluster
