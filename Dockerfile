@@ -5,7 +5,7 @@ ARG HEATCLUSTER_VER="1.2.5.20240904"
 
 # adding labels
 LABEL base.image="ubuntu:jammy"
-LABEL dockerfile.version="1"
+LABEL dockerfile.version="5"
 LABEL software="heatcluster"
 LABEL software.version="${HEATCLUSTER_VER}"
 LABEL version="${HEATCLUSTER_VER}"
@@ -35,21 +35,21 @@ COPY . /heatcluster
 ENV PATH=/heatcluster:$PATH
 
 # makes sure heacluster is in path
-RUN heatcluster.py -h
+RUN python heatcluster.py -h
 
 # default command for the container
-CMD heatcluster.py -h
+CMD python heatcluster.py -h
 
 FROM app as test
 
 WORKDIR /test
 
 RUN echo "Show heatcluster version number and help file:  " && \
-  heatcluster.py --version && \
-  heatcluster.py --help
+  python heatcluster.py --version && \
+  python heatcluster.py --help
 
 RUN echo "Test a small and medium matrix :" && \
-  heatcluster.py -i /heatcluster/test/small_matrix.csv -t png -o small_test && \
-  heatcluster.py -i /heatcluster/test/med_matrix.txt -t pdf -o med_test && \
+  python heatcluster.py -i /heatcluster/test/small_matrix.csv -t png -o small_test && \
+  python heatcluster.py -i /heatcluster/test/med_matrix.txt -t pdf -o med_test && \
   ls med_test.pdf && ls small_test.png
 
