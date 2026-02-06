@@ -1,0 +1,309 @@
+# External commands to generate data to use as input
+
+HeatCluster is intended to take inputs from various tools for cluster analysis. Therefore, it may be helpful to demonstrate the general ways that expected input files are generated.
+
+There should be example files for each software in [test](../test/).
+
+This guide provides "cookbook" commands to generate compatible input files from common tools.
+
+## mash
+
+The basic command
+```bash
+mash sketch -o genomes *.fasta
+mash dist genomes.msh genomes.msh > mash_example.txt
+```
+
+The basic outfile
+```
+3619123.fasta   3619123.fasta   0       0       1000/1000
+3662791.fasta   3619123.fasta   0.000167546     0       993/1000
+3675802.fasta   3619123.fasta   0.000167546     0       993/1000
+3619123.fasta   3662791.fasta   0.000167546     0       993/1000
+3662791.fasta   3662791.fasta   0       0       1000/1000
+3675802.fasta   3662791.fasta   4.76906e-05     0       998/1000
+3619123.fasta   3675802.fasta   0.000167546     0       993/1000
+3662791.fasta   3675802.fasta   4.76906e-05     0       998/1000
+3675802.fasta   3675802.fasta   0       0       1000/1000
+```
+
+
+## fastani
+
+The basic command
+```bash
+ls *fasta > genome_list.txt
+fastani --ql genome_list.txt --rl genome_list.txt -o fastani.txt
+```
+
+The basic outfile
+```
+3619123.fasta   3619123.fasta   100     1702    1705
+3619123.fasta   3675802.fasta   99.9892 1677    1705
+3619123.fasta   3662791.fasta   99.97   1650    1705
+3662791.fasta   3662791.fasta   100     1677    1682
+3662791.fasta   3619123.fasta   99.9985 1677    1682
+3662791.fasta   3675802.fasta   99.9913 1656    1682
+3675802.fasta   3675802.fasta   100     1684    1688
+3675802.fasta   3619123.fasta   99.9977 1681    1688
+3675802.fasta   3662791.fasta   99.9811 1644    1688
+```
+
+## skani
+The basic command
+```bash
+skani triangle --full-matrix *fasta > skani_triangle_full.txt
+```
+
+The basic outfile
+```
+3
+3619123.fasta   100.00  100.00  100.00
+3662791.fasta   100.00  100.00  99.97
+3675802.fasta   100.00  99.97   100.00
+```
+
+
+## snp-dists
+The basic command
+```bash
+snp-dists core_gene_alignment.aln > snp-dists.txt
+```
+
+The basic outfile
+```
+snp-dists 1.2.0 3619123 3675802 Escherichia_coli_GCF_000005845.2        3662791
+3619123 0       1       82909   20
+3675802 1       0       82869   21
+Escherichia_coli_GCF_000005845.2        82909   82869   0       82903
+3662791 20      21      82903   0
+```
+
+## sourmash
+The basic command
+```bash
+sourmash compute \
+  -k 21 \
+  --scaled 1000 \
+  --dna \
+  *.fasta
+
+sourmash sig cat *.sig -o all.sig
+
+sourmash compare all.sig \
+  --csv sourmash_distances.csv
+```
+
+The basic outfile
+```
+3619123.fasta,3662791.fasta,3675802.fasta
+1.0,0.9916325771662328,0.9921918572225321
+0.9916325771662328,1.0,0.9979408461250469
+0.9921918572225321,0.9979408461250469,1.0
+```
+
+## poppunk
+
+The basic command
+```bash
+ poppunk --create-db \
+  --r-files input_genomes.txt \
+  --output poppunk_db \
+  --threads 4
+```
+
+The basic outfile is not rendered here. There should be a `poppunk_db.dists.npy` (data) and `poppunk_db.dists.pkl` (names) file in [test](../test/). The `*dists.npy` file is what is used as input for HeatCluster, but the `*dists.pkl` file must be in the same directory.
+
+## EzAAI
+The basic command
+```bash
+ezaai extract -i  -o contigs_aa
+ezaai calculate -i contigs_aa -j contigs_aa/ -o ezaai_example.txt \
+  -t 4 \
+  --out-matrix
+```
+
+The basic outfile
+```
+ID 1    ID 2    Label 1 Label 2 AAI     CDS count 1     CDS count 2     Matched count   Proteome cov.   ID param.       Cov. param.
+106718576       106718576       3675802.fasta   3675802.fasta   100.000000      5086    5086    5053    0.993512        0.400000        0.500000
+106718576       228898585       3675802.fasta   3662791.fasta   99.986667       5086    5086    4860    0.955564        0.400000        0.500000
+106718576       789609122       3675802.fasta   3619123.fasta   99.999272       5086    5115    4945    0.969513        0.400000        0.500000
+228898585       106718576       3662791.fasta   3675802.fasta   99.986667       5086    5086    4860    0.955564        0.400000        0.500000
+228898585       228898585       3662791.fasta   3662791.fasta   100.000000      5086    5086    5078    0.998427        0.400000        0.500000
+228898585       789609122       3662791.fasta   3619123.fasta   99.989484       5086    5115    4869    0.954612        0.400000        0.500000
+789609122       106718576       3619123.fasta   3675802.fasta   99.999272       5115    5086    4945    0.969513        0.400000        0.500000
+789609122       228898585       3619123.fasta   3662791.fasta   99.989484       5115    5086    4869    0.954612        0.400000        0.500000
+789609122       789609122       3619123.fasta   3619123.fasta   100.000000      5115    5115    5089    0.994917        0.400000        0.500000
+```
+## Newick files
+
+Newick files are generated by a LOT of tools, but they basically have the following format:
+
+```
+(3619123:0.0000000271,3675802:0.0000002707,(Escherichia_coli_GCF_000005845.2:0.0232286539,3662791:0.0000046640)88/95:0.0000007607);
+```
+
+Most newick files end in .treefile, .nwk, or .newick. 
+
+## kWIP
+The basic command
+```bash
+# Loop through all files ending in .fasta (or .fa)
+for assembly in *.fasta
+do
+  echo "Hashing $assembly..."
+  
+  # Output name: assembly.fasta -> assembly.ct.gz
+  output_table="${assembly}.ct.gz"
+  
+  # Run khmer (Adjust -x memory if needed)
+  load-into-counting.py -k 21 -x 1e9 "$output_table" "$assembly"
+done
+
+kwip -d assembly_matrix.dist -k assembly_matrix.kern -t 4 *.ct.gz
+```
+
+The basic outfile
+```
+	3619123.fasta	3662791.fasta	3675802.fasta
+3619123.fasta	0	1.32336	1.24592
+3662791.fasta	1.32336	0	1.40183
+3675802.fasta	1.24592	1.40183	0
+```
+
+## ska
+The basic command
+```bash
+for file in *.fasta; do
+    # Create an output name (e.g., 3619123.skf)
+    outfile="${file%.fasta}.skf"
+
+    echo "Sketching $file -> $outfile"
+    ska fasta -o "$outfile" "$file"
+done
+
+ska distance -o ska_matrix ska_fasta.skf
+```
+
+The basic outfile. The column "SNPs" is used for clustering.
+```
+Sample 1	Sample 2	Matches	Mismatches	Jaccard Index	Mash-like distance	SNPs	SNP distance
+3619123.skf	3662791.skf	5198462	42886	0.991818	0.000132786	13	2.50074e-06
+3619123.skf	3675802.skf	5205152	35948	0.993141	0.0001112	4	7.68469e-07
+3662791.skf	3675802.skf	5197107	11640	0.997765	3.61041e-05	14	2.69381e-06
+```
+
+## bindash
+
+The basic command
+```bash
+bindash sketch --listfname=genomes_list.txt --outfname=all_samples.bsh
+bindash dist all_samples.bsh > bindash_dist.tsv
+```
+
+The basic outfile
+```
+3619123.fasta   3662791.fasta   2.7644e-04      0.0000e+00      2030/2048
+3619123.fasta   3675802.fasta   2.1470e-04      0.0000e+00      2034/2048
+3662791.fasta   3675802.fasta   9.1750e-05      0.0000e+00      2042/2048
+```
+
+## dashing
+
+The basic command
+```bash
+dashing dist -k31 -p13 -Odistance_matrix.txt -osize_estimates.txt *fasta
+```
+
+The basic outfile
+```
+##Names 3619123.fasta   3675802.fasta   3662791.fasta
+3619123.fasta   -       0.996878        0.995333
+3675802.fasta   -       -       0.99845
+3662791.fasta   -       -       -
+```
+
+## pyANI
+
+The basic command
+```bash
+average_nucleotide_identity.py -i contigs -o pyani_output -m ANIm -f
+```
+
+The basic outfiles for identity include 
+- the `*hadamard.tab` files
+```
+        3619123 3662791 3675802
+3619123 1.0     0.9862895794728583      0.9913432152400151
+3662791 0.9971023315370218      1.0     0.9971071100273587
+3675802 0.9982132021209833      0.9929964334463758      1.0
+```
+- the `*percentage_identity.tab` files
+```
+        3619123 3662791 3675802
+3619123 1.0     0.9999625759807326      0.9999872858664758
+3662791 0.9999661697548485      1.0     0.9999654270293764
+3675802 0.999986339430248       0.9999618481007757      1.0
+```
+The outfile for `*similarity_errors.tab`
+```        3619123 3662791 3675802
+3619123 0.0     178.0   72.0
+3662791 178.0   0.0     201.0
+3675802 72.0    201.0   0.0
+```
+
+## iqtree
+The basic command
+```bash
+iqtree -s core_gene_alignment.aln -m GTR+G
+```
+
+The `*.mldist` outfile
+```
+4
+3619123                          0.000000000 0.000000258 0.023229344 0.000005449
+3675802                          0.000000258 0.000000000 0.023236693 0.000005726
+Escherichia_coli_GCF_000005845.2 0.023229344 0.023236693 0.000000000 0.023234652
+3662791                          0.000005449 0.000005726 0.023234652 0.000000000
+```
+
+## Roary/Panaroo/etc
+The basic command
+```bash
+panaroo -i *.gff -o ./results --clean-mode strict -t 4
+```
+These tools generate a `gene_presence_absence.Rtab` file, which can be used as input.
+
+This outfile is tool large to render here, but it's basically a row for each gene, and a column for each sample.
+```
+Gene	3619123	3662791	3675802 GCF_000005845.2
+srkA	1	1	1	1
+dsbA	1	1	1	1
+```
+
+
+## Pathogen Detection
+
+Pathogen detection (PD) generates SNP matrices for each cluster. These can be found on PD FTP site: https://ftp.ncbi.nlm.nih.gov/pathogen/Results/
+
+## VCF file
+
+Newick files are generated by a LOT of tools, but they basically have the following format:
+```
+##fileformat=VCFv4.2
+##fileDate=20231025
+##source=GeminiExample
+##contig=<ID=chr1,length=10000>
+##INFO=<ID=DP,Number=1,Type=Integer,Description="Total Depth">
+##INFO=<ID=AF,Number=A,Type=Float,Description="Allele Frequency">
+##FORMAT=<ID=GT,Number=1,Type=String,Description="Genotype">
+##FORMAT=<ID=GQ,Number=1,Type=Integer,Description="Genotype Quality">
+##FORMAT=<ID=DP,Number=1,Type=Integer,Description="Read Depth">
+#CHROM	POS	ID	REF	ALT	QUAL	FILTER	INFO	FORMAT	Sample1
+chr1	105	.	C	G	60	PASS	DP=20;AF=0.5	GT:GQ:DP	0/1:60:20
+chr1	230	rs123	A	AT	50	PASS	DP=15;AF=1.0	GT:GQ:DP	1/1:50:15
+chr1	550	.	T	A	10	q10	DP=4;AF=0.5	GT:GQ:DP	0/1:10:4
+```
+
+Note: HeatCluster is intended to work with haploid organisms and may have unexpected results with organisms of other ploidy.

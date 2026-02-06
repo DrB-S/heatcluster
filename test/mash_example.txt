@@ -1,0 +1,9 @@
+contigs/3619123.fasta	contigs/3619123.fasta	0	0	1000/1000	
+contigs/3662791.fasta	contigs/3619123.fasta	0.000167546	0	993/1000	
+contigs/3675802.fasta	contigs/3619123.fasta	0.000167546	0	993/1000	
+contigs/3619123.fasta	contigs/3662791.fasta	0.000167546	0	993/1000	
+contigs/3662791.fasta	contigs/3662791.fasta	0	0	1000/1000	
+contigs/3675802.fasta	contigs/3662791.fasta	4.76906e-05	0	998/1000	
+contigs/3619123.fasta	contigs/3675802.fasta	0.000167546	0	993/1000	
+contigs/3662791.fasta	contigs/3675802.fasta	4.76906e-05	0	998/1000	
+contigs/3675802.fasta	contigs/3675802.fasta	0	0	1000/1000	

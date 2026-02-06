@@ -1,0 +1,9 @@
+contigs/3619123.fasta	contigs/3619123.fasta	100	1702	1705
+contigs/3619123.fasta	contigs/3675802.fasta	99.9892	1677	1705
+contigs/3619123.fasta	contigs/3662791.fasta	99.97	1650	1705
+contigs/3662791.fasta	contigs/3662791.fasta	100	1677	1682
+contigs/3662791.fasta	contigs/3619123.fasta	99.9985	1677	1682
+contigs/3662791.fasta	contigs/3675802.fasta	99.9913	1656	1682
+contigs/3675802.fasta	contigs/3675802.fasta	100	1684	1688
+contigs/3675802.fasta	contigs/3619123.fasta	99.9977	1681	1688
+contigs/3675802.fasta	contigs/3662791.fasta	99.9811	1644	1688

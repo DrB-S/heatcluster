@@ -1,41 +1,89 @@
-name: heatcluster test
+name: HeatCluster CLI Tests
+
 on: [pull_request, workflow_dispatch]
+
 jobs:
-  test:
+  manual-cli-test:
     runs-on: ubuntu-latest
     steps:
-      - name: checkout
+      - name: Checkout
         uses: actions/checkout@v4
-      
-      - name: install dependencies
-        run: pip3 install pandas numpy pathlib seaborn matplotlib
-      
-      - name: test (tab-delimited)
-        run: python3 heatcluster.py -i test/small_matrix.csv
 
-      - name: test1 (comma-delimited)
-        run: python3 heatcluster.py -i test/snp-dists.txt -o test1
-      
-      - name: test2 (empty first row/col cell)
-        run: python3 heatcluster.py -i test/blank.txt -o test2 -t png
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.12' 
+          cache: 'pip'
 
-      - name: test3 (melted - failure)
-        run: python3 heatcluster.py -i test/melted.txt -o test3
-      
-      - name: test4 (small matrix)
-        run: python3 heatcluster.py -i test/small_matrix.csv -o test4
-      
-      - name: test5 (medium matrix)
-        run: python3 heatcluster.py -i test/med_matrix.txt -o test5
-      
-      - name: test6 (large matrix)
-        run: python3 heatcluster.py -i test/large_matrix.csv -o test6
+      - name: Install dependencies
+        run: pip3 install .
 
-      - name: test7 (help)
-        run: python3 heatcluster.py -h
+      # --- BASIC MATRIX INPUTS ---
+      - name: Test Standard CSV (Small)
+        run: heatcluster -i test/small_matrix.csv -o out_small.png
 
-      - name: test8 (version)
-        run: python3 heatcluster.py -v
+      - name: Test Standard CSV (Large + Auto-K + PCA)
+        # Testing the ML features mentioned in README
+        run: heatcluster -i test/large_matrix.csv --auto-k --pca -o out_large.png
 
-      - name: tree
-        run: tree
+      - name: Test SNP-dists
+        run: heatcluster -i test/snp-dists.txt --format snp-dists -o out_snpdists.png
+
+      - name: Test Melted Format
+        run: heatcluster -i test/melted.txt --format melted -o out_melted.png
+
+      # --- GENOMIC IDENTITY INPUTS ---
+      - name: Test FastANI
+        run: heatcluster -i test/fastani_example.txt --format fastani -o out_fastani.png
+
+      - name: Test Skani
+        run: heatcluster -i test/skani_example.txt --format skani -o out_skani.png
+
+      - name: Test EzAAI
+        run: heatcluster -i test/ezaai_example.txt --format ezaai -o out_ezaai.png
+
+      - name: Test PyANI (Identity)
+        run: heatcluster -i test/pyani_example_percentage_identity.tab --format pyani_identity -o out_pyani_id.png
+
+      - name: Test PyANI (Errors)
+        run: heatcluster -i test/pyani_example_similarity_errors.tab --format pyani_errors -o out_pyani_err.png
+
+      - name: Test Sourmash
+        run: heatcluster -i test/sourmash_example.csv --format sourmash -o out_sourmash.png
+
+      # --- SKETCHING / K-MER INPUTS ---
+      - name: Test Mash
+        run: heatcluster -i test/mash_example.txt --format mash -o out_mash.png
+
+      - name: Test Dashing
+        run: heatcluster -i test/dashing_example.txt --format dashing -o out_dashing.png
+
+      - name: Test BinDash
+        run: heatcluster -i test/bindash_example.txt --format bindash -o out_bindash.png
+
+      - name: Test KWIP
+        run: heatcluster -i test/kwip_example.txt --format kwip -o out_kwip.png
+
+      - name: Test SKA
+        run: heatcluster -i test/ska_example.distances.tsv --format ska -o out_ska.png
+
+      # --- BIOLOGICAL / PHYLOGENY INPUTS ---
+      - name: Test Newick Tree (Biopython)
+        run: heatcluster -i test/example.nwk --format nwk -o out_nwk.png
+
+      - name: Test IQ-TREE
+        run: heatcluster -i test/iqtree_example.mldist --format iqtree -o out_iqtree.png
+
+      - name: Test Gene Presence/Absence (Roary/Panaroo)
+        run: heatcluster -i test/gene_presence_absence.Rtab --format gene_presence_absence -o out_gpa.png
+
+      - name: Test PopPUNK
+        # PopPUNK usually requires the .npy file, script should auto-detect .pkl
+        run: heatcluster -i test/poppunk_db.dists.npy --format poppunk -o out_poppunk.png
+
+      # --- UTILITIES ---
+      - name: Test Version Flag
+        run: heatcluster -v
+
+      - name: Test Help Flag
+        run: heatcluster -h

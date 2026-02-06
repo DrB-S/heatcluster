@@ -1,0 +1,4 @@
+##Names	contigs/3619123.fasta	contigs/3675802.fasta	contigs/3662791.fasta
+contigs/3619123.fasta	-	0.996878	0.995333
+contigs/3675802.fasta	-	-	0.99845
+contigs/3662791.fasta	-	-	-

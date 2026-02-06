@@ -1,0 +1,50 @@
+[build-system]
+requires = ["setuptools>=61.0"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "heatcluster"
+version = "1.3.0"
+description = "A Python tool for visualizing SNP matrices with hierarchical clustering"
+readme = "README.md"
+requires-python = ">=3.8"
+
+authors = [
+  { name = "Stephen Beckstrom-Sternberg", email = "stephen.beckstrom-sternberg@azdhs.gov" },
+]
+
+maintainers = [
+  { name = "Erin Young", email = "eriny@utah.gov" }
+]
+
+license = { file = "LICENSE" }
+
+classifiers = [
+    "Programming Language :: Python :: 3",
+    "License :: OSI Approved :: GNU General Public License v3 (GPLv3)",
+    "Operating System :: OS Independent",
+    "Topic :: Scientific/Engineering :: Bio-Informatics",
+]
+
+dependencies = [
+    "pandas>=1.3.0",
+    "numpy>=1.20.0",
+    "seaborn>=0.11.0",
+    "matplotlib>=3.4.0",
+    "scipy>=1.7.0",
+    "scikit-learn",
+    "fastcluster",
+    "biopython",
+]
+
+[project.urls]
+"Homepage" = "https://github.com/erinyoung/heatcluster"
+"Bug Tracker" = "https://github.com/erinyoung/heatcluster/issues"
+"Original Repository" = "https://github.com/DrB-S/heatcluster"
+
+[project.scripts]
+heatcluster = "heatcluster.cli:main"
+
+[tool.setuptools.packages.find]
+where = ["src"]
+exclude = ["test*", "tests*", "docs*"]
